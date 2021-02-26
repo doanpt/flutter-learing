@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:my_shop/models/product.dart';
 import 'package:my_shop/screens/product_detail_screen.dart';
+import 'package:provider/provider.dart';
 
 class ProductItem extends StatelessWidget {
-  final Product product;
-
-  ProductItem(this.product);
-
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context);
+    print("product is $product");
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
       child: InkWell(
@@ -29,9 +28,14 @@ class ProductItem extends StatelessWidget {
               product.title,
               textAlign: TextAlign.center,
             ),
-            trailing: Icon(
-              Icons.favorite,
-              color: Theme.of(context).accentColor,
+            trailing: IconButton(
+              icon: Icon(
+                product.isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: Theme.of(context).accentColor,
+              ),
+              onPressed: () {
+                product.toggleFavorite();
+              },
             ),
             leading: Icon(
               Icons.shopping_cart,
