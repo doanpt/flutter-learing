@@ -1,17 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:my_shop/models/product.dart';
 import 'package:my_shop/providers/products_provider.dart';
 import 'package:my_shop/widgets/product_item.dart';
 import 'package:provider/provider.dart';
 
-class ProductsOverviewScreen extends StatelessWidget {
+enum FilterOptions { FavoriteOnly, All }
+
+class ProductsOverviewScreen extends StatefulWidget {
+  @override
+  _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();
+}
+
+class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
+  bool isFavoriteOnly = false;
+
   @override
   Widget build(BuildContext context) {
-    final List<Product> products =
-        Provider.of<ProductsProvider>(context).products;
+    final productsData = Provider.of<ProductsProvider>(context);
+    final products =
+        isFavoriteOnly ? productsData.favorites : productsData.products;
     return Scaffold(
       appBar: AppBar(
         title: Text('My Shop'),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (c) => [
+              PopupMenuItem(
+                child: Text('Only Favorite'),
+                value: FilterOptions.FavoriteOnly,
+              ),
+              PopupMenuItem(
+                child: Text('All'),
+                value: FilterOptions.All,
+              ),
+            ],
+            icon: Icon(Icons.more_vert),
+            onSelected: (index) {
+              if (index == FilterOptions.FavoriteOnly) {
+                isFavoriteOnly = true;
+              } else {
+                isFavoriteOnly = false;
+              }
+              setState(() {});
+            },
+          )
+        ],
       ),
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
