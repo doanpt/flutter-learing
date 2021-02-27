@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_shop/providers/products_provider.dart';
+import 'package:my_shop/widgets/badge.dart';
 import 'package:my_shop/widgets/product_item.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,20 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('My Shop'),
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          color: Colors.white,
+          onPressed: () {},
+        ),
         actions: [
+          Badge(
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              color: Colors.white,
+              onPressed: () {},
+            ),
+            value: "1",
+          ),
           PopupMenuButton(
             itemBuilder: (c) => [
               PopupMenuItem(
