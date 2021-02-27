@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_shop/providers/cart_provider.dart';
 import 'package:my_shop/providers/products_provider.dart';
 import 'package:my_shop/screens/shopping_cart_screen.dart';
+import 'package:my_shop/widgets/app_drawer.dart';
 import 'package:my_shop/widgets/badge.dart';
 import 'package:my_shop/widgets/product_item.dart';
 import 'package:provider/provider.dart';
@@ -24,11 +25,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('My Shop'),
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          color: Colors.white,
-          onPressed: () {},
-        ),
         actions: [
           Consumer<CartProvider>(
             builder: (_, cart, widget) => Badge(
@@ -66,6 +62,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           )
         ],
       ),
+      drawer: AppDrawer(),
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
