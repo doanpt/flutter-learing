@@ -33,7 +33,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           Consumer<CartProvider>(
             builder: (_, cart, widget) => Badge(
               child: widget,
-              value: cart.itemCount,
+              value: cart.itemCount.toString(),
             ),
             child: IconButton(
               icon: Icon(Icons.shopping_cart),
