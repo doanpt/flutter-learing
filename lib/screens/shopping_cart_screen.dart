@@ -34,7 +34,7 @@ class ShoppingCartScreen extends StatelessWidget {
                   Expanded(
                     child: Chip(
                       label: Text(
-                        '\$ ${cart.totalAmount.toString()}',
+                        '\$ ${cart.totalAmount.toStringAsFixed(2)}',
                       ),
                       backgroundColor: Theme.of(context).primaryColor,
                     ),
@@ -53,7 +53,9 @@ class ShoppingCartScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemBuilder: (ctx, index) => CartItem(cart.cartItems.values.toList()[index]),
+              itemBuilder: (ctx, index) => CartItem(
+                  cart.cartItems.values.toList()[index],
+                  cart.cartItems.keys.toList()[index]),
               itemCount: cart.itemCount,
             ),
           ),
