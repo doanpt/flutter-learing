@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_shop/models/cart_order.dart';
+import 'package:my_shop/models/cart.dart';
 import 'package:my_shop/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class CartItem extends StatelessWidget {
-  final CartOrder cart;
+  final Cart cart;
   final String productId;
 
   CartItem(this.cart, this.productId);
