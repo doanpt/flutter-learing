@@ -16,6 +16,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _form = GlobalKey<FormState>();
   Product _editedProduct =
       Product(id: null, description: "", imageUrl: "", price: 0, title: "");
+  bool _isValid = true;
 
   @override
   void initState() {
@@ -25,10 +26,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _saveForm() {
     _form.currentState.save();
-    print(_editedProduct.title);
-    print(_editedProduct.description);
-    print(_editedProduct.price);
-    print(_editedProduct.imageUrl);
+    if(_isValid) {
+      print(_editedProduct.title);
+      print(_editedProduct.description);
+      print(_editedProduct.price);
+      print(_editedProduct.imageUrl);
+    } else {
+      print("data invalid");
+    }
   }
 
   @override
@@ -56,6 +61,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           IconButton(
             icon: Icon(Icons.save),
             onPressed: () {
+              _form.currentState.validate();
               _saveForm();
             },
           )
@@ -73,6 +79,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
               textInputAction: TextInputAction.next,
               onFieldSubmitted: (_) {
                 FocusScope.of(context).requestFocus(_priceFocusNode);
+              },
+              validator: (value) {
+                if (value.isEmpty) {
+                  _isValid = false;
+                  return "Please enter the title";
+                }
+                return null;
               },
               onSaved: (value) => {
                 _editedProduct = Product(
@@ -93,6 +106,16 @@ class _EditProductScreenState extends State<EditProductScreen> {
               onFieldSubmitted: (_) {
                 FocusScope.of(context).requestFocus(_descriptionFocusNode);
               },
+              validator: (value) {
+                if (value.isEmpty) {
+                  _isValid = false;
+                  return "Please enter the price";
+                }
+                if (double.tryParse(value) == null) {
+                  return "Please enter valid number!";
+                }
+                return null;
+              },
               onSaved: (value) => {
                 _editedProduct = Product(
                     id: null,
@@ -105,11 +128,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
             TextFormField(
                 maxLines: 3,
                 decoration: const InputDecoration(
-                  labelText: "Title",
+                  labelText: "Description",
                   hintText: "Enter the description",
                 ),
                 textInputAction: TextInputAction.newline,
                 focusNode: _descriptionFocusNode,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    _isValid = false;
+                    return "Please enter the description";
+                  }
+                  return null;
+                },
                 onSaved: (value) => {
                       _editedProduct = Product(
                           id: null,
@@ -152,6 +182,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         textInputAction: TextInputAction.done,
                         onFieldSubmitted: (value) {
                           setState(() {});
+                        },
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            _isValid = false;
+                            return "Please enter the url";
+                          }
+                          return null;
                         },
                         onSaved: (value) => {
                               _editedProduct = Product(
