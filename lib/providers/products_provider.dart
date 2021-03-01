@@ -83,7 +83,15 @@ class ProductsProvider with ChangeNotifier {
       _products.where((prod) => prod.isFavorite == true).toList();
 
   void addProduct(Product product) {
-    _products.add(product);
+    //FIXME auto need to generated from server
+    final newProduct = Product(
+        id: DateTime.now().toString(),
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl);
+    // _products.add(product);
+    _products.add(newProduct);
     notifyListeners();
   }
 
