@@ -18,11 +18,32 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _form = GlobalKey<FormState>();
   Product _editedProduct =
       Product(id: null, description: "", imageUrl: "", price: 0, title: "");
+  var _isInit = true;
+  var initValue = {};
 
   @override
   void initState() {
     super.initState();
     _imageUrlController.addListener(_updateImage);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_isInit) {
+      final productId = ModalRoute.of(context).settings.arguments;
+      if (productId != null) {
+        _editedProduct =
+            Provider.of<ProductsProvider>(context).findProductById(productId);
+        initValue = {
+          'title': _editedProduct.title,
+          'description': _editedProduct.description,
+          'price': _editedProduct.price,
+        };
+        _imageUrlController.text = _editedProduct.imageUrl;
+      }
+    }
+    _isInit = false;
   }
 
   void _saveForm() {
@@ -31,8 +52,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
       return;
     }
     _form.currentState.save();
-    Provider.of<ProductsProvider>(context, listen: false)
-        .addProduct(_editedProduct);
+    if (_editedProduct.id != null) {
+      Provider.of<ProductsProvider>(context, listen: false)
+          .updateProduct(_editedProduct.id, _editedProduct);
+    } else {
+      Provider.of<ProductsProvider>(context, listen: false)
+          .addProduct(_editedProduct);
+    }
     Navigator.of(context).pop();
   }
 
@@ -75,6 +101,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 labelText: "Title",
                 hintText: "Enter the title",
               ),
+              initialValue: initValue['title'],
               textInputAction: TextInputAction.next,
               onFieldSubmitted: (_) {
                 FocusScope.of(context).requestFocus(_priceFocusNode);
@@ -87,7 +114,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
               },
               onSaved: (value) => {
                 _editedProduct = Product(
-                    id: null,
+                    id: _editedProduct.id,
                     title: value,
                     description: _editedProduct.description,
                     price: _editedProduct.price,
@@ -99,6 +126,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 labelText: "Price",
                 hintText: "Enter the price",
               ),
+              initialValue: initValue['price'].toString(),
               textInputAction: TextInputAction.next,
               focusNode: _priceFocusNode,
               onFieldSubmitted: (_) {
@@ -115,7 +143,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
               },
               onSaved: (value) => {
                 _editedProduct = Product(
-                    id: null,
+                    id: _editedProduct.id,
                     title: _editedProduct.title,
                     description: _editedProduct.description,
                     price: double.parse(value),
@@ -128,6 +156,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   labelText: "Description",
                   hintText: "Enter the description",
                 ),
+                initialValue: initValue['description'],
                 textInputAction: TextInputAction.newline,
                 focusNode: _descriptionFocusNode,
                 validator: (value) {
@@ -138,7 +167,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 },
                 onSaved: (value) => {
                       _editedProduct = Product(
-                          id: null,
+                          id: _editedProduct.id,
                           title: _editedProduct.title,
                           description: value,
                           price: _editedProduct.price,
@@ -187,7 +216,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         },
                         onSaved: (value) => {
                               _editedProduct = Product(
-                                  id: null,
+                                  id: _editedProduct.id,
                                   title: _editedProduct.title,
                                   description: _editedProduct.description,
                                   price: _editedProduct.price,
