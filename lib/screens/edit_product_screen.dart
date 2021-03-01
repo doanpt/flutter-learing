@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_shop/models/product.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const routeName = "/edit-product";
@@ -12,11 +13,22 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _descriptionFocusNode = FocusNode();
   final _imageUrlFocusNode = FocusNode();
   final _imageUrlController = TextEditingController();
+  final _form = GlobalKey<FormState>();
+  Product _editedProduct =
+      Product(id: null, description: "", imageUrl: "", price: 0, title: "");
 
   @override
   void initState() {
     super.initState();
     _imageUrlController.addListener(_updateImage);
+  }
+
+  void _saveForm() {
+    _form.currentState.save();
+    print(_editedProduct.title);
+    print(_editedProduct.description);
+    print(_editedProduct.price);
+    print(_editedProduct.imageUrl);
   }
 
   @override
@@ -43,11 +55,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.save),
-            onPressed: () {},
+            onPressed: () {
+              _saveForm();
+            },
           )
         ],
       ),
       body: Form(
+        key: _form,
         child: ListView(
           children: [
             TextFormField(
@@ -56,6 +71,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 hintText: "Enter the title",
               ),
               textInputAction: TextInputAction.next,
+              onFieldSubmitted: (_) {
+                FocusScope.of(context).requestFocus(_priceFocusNode);
+              },
+              onSaved: (value) => {
+                _editedProduct = Product(
+                    id: null,
+                    title: value,
+                    description: _editedProduct.description,
+                    price: _editedProduct.price,
+                    imageUrl: _editedProduct.imageUrl)
+              },
             ),
             TextFormField(
               decoration: const InputDecoration(
@@ -64,16 +90,34 @@ class _EditProductScreenState extends State<EditProductScreen> {
               ),
               textInputAction: TextInputAction.next,
               focusNode: _priceFocusNode,
+              onFieldSubmitted: (_) {
+                FocusScope.of(context).requestFocus(_descriptionFocusNode);
+              },
+              onSaved: (value) => {
+                _editedProduct = Product(
+                    id: null,
+                    title: _editedProduct.title,
+                    description: _editedProduct.description,
+                    price: double.parse(value),
+                    imageUrl: _editedProduct.imageUrl)
+              },
             ),
             TextFormField(
-              maxLines: 3,
-              decoration: const InputDecoration(
-                labelText: "Title",
-                hintText: "Enter the description",
-              ),
-              textInputAction: TextInputAction.newline,
-              focusNode: _descriptionFocusNode,
-            ),
+                maxLines: 3,
+                decoration: const InputDecoration(
+                  labelText: "Title",
+                  hintText: "Enter the description",
+                ),
+                textInputAction: TextInputAction.newline,
+                focusNode: _descriptionFocusNode,
+                onSaved: (value) => {
+                      _editedProduct = Product(
+                          id: null,
+                          title: _editedProduct.title,
+                          description: value,
+                          price: _editedProduct.price,
+                          imageUrl: _editedProduct.imageUrl)
+                    }),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -98,18 +142,25 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   ),
                   Expanded(
                     child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: "URL",
-                        hintText: "Enter the url",
-                      ),
-                      controller: _imageUrlController,
-                      focusNode: _imageUrlFocusNode,
-                      keyboardType: TextInputType.url,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (value) {
-                        setState(() {});
-                      },
-                    ),
+                        decoration: const InputDecoration(
+                          labelText: "URL",
+                          hintText: "Enter the url",
+                        ),
+                        controller: _imageUrlController,
+                        focusNode: _imageUrlFocusNode,
+                        keyboardType: TextInputType.url,
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (value) {
+                          setState(() {});
+                        },
+                        onSaved: (value) => {
+                              _editedProduct = Product(
+                                  id: null,
+                                  title: _editedProduct.title,
+                                  description: _editedProduct.description,
+                                  price: _editedProduct.price,
+                                  imageUrl: value)
+                            }),
                   )
                 ],
               ),
