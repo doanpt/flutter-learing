@@ -16,7 +16,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _form = GlobalKey<FormState>();
   Product _editedProduct =
       Product(id: null, description: "", imageUrl: "", price: 0, title: "");
-  bool _isValid = true;
 
   @override
   void initState() {
@@ -25,15 +24,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _saveForm() {
-    _form.currentState.save();
-    if(_isValid) {
-      print(_editedProduct.title);
-      print(_editedProduct.description);
-      print(_editedProduct.price);
-      print(_editedProduct.imageUrl);
-    } else {
-      print("data invalid");
+    bool isValid = _form.currentState.validate();
+    if (!isValid) {
+      return;
     }
+    _form.currentState.save();
   }
 
   @override
@@ -61,7 +56,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
           IconButton(
             icon: Icon(Icons.save),
             onPressed: () {
-              _form.currentState.validate();
               _saveForm();
             },
           )
@@ -82,7 +76,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  _isValid = false;
                   return "Please enter the title";
                 }
                 return null;
@@ -108,7 +101,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  _isValid = false;
                   return "Please enter the price";
                 }
                 if (double.tryParse(value) == null) {
@@ -135,7 +127,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 focusNode: _descriptionFocusNode,
                 validator: (value) {
                   if (value.isEmpty) {
-                    _isValid = false;
                     return "Please enter the description";
                   }
                   return null;
@@ -185,7 +176,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         },
                         validator: (value) {
                           if (value.isEmpty) {
-                            _isValid = false;
                             return "Please enter the url";
                           }
                           return null;
