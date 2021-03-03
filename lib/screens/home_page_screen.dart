@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/screens/chat_screen.dart';
+import 'package:flutter_chat_app/screens/conversation_list_screen.dart';
 
 class HomePageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ChatScreen(),
+      body: ConversationListScreen(),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.grey.shade600,

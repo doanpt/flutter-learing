@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/models/chat_user.dart';
 import 'package:flutter_chat_app/widgets/conversation_list.dart';
 
-class ChatScreen extends StatefulWidget {
+class ConversationListScreen extends StatefulWidget {
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  _ConversationListScreenState createState() => _ConversationListScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ConversationListScreenState extends State<ConversationListScreen> {
   List<ChatUsers> chatUsers = [
     ChatUsers(
         name: "Jane Russel",
