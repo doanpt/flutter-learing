@@ -2,29 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/models/chat_message.dart';
 
 class ChatScreen extends StatefulWidget {
-  final name;
-  final imageUrl;
-
-  ChatScreen(this.name, this.imageUrl);
-
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
   List<ChatMessage> messages = [
-    ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
-    ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
+    ChatMessage(
+      messageContent: "Hello, Will",
+      messageType: "receiver",
+    ),
+    ChatMessage(
+      messageContent: "How have you been?",
+      messageType: "receiver",
+    ),
     ChatMessage(
         messageContent: "Hey Kriss, I am doing fine dude. wbu?",
         messageType: "sender"),
-    ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
     ChatMessage(
-        messageContent: "Is there any thing wrong?", messageType: "sender"),
+      messageContent: "ehhhh, doing OK.",
+      messageType: "receiver",
+    ),
+    ChatMessage(
+      messageContent: "Is there any thing wrong?",
+      messageType: "sender",
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, String> userData =
+        ModalRoute.of(context).settings.arguments;
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -48,7 +56,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     width: 2,
                   ),
                   CircleAvatar(
-                    backgroundImage: AssetImage(widget.imageUrl),
+                    backgroundImage: AssetImage(userData['imageUrl']),
                     maxRadius: 20,
                   ),
                   SizedBox(
@@ -60,7 +68,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          widget.name,
+                          userData['name'],
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),

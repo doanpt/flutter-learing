@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_app/screens/ChatScreen.dart';
+import 'package:flutter_chat_app/utils/const.dart';
 
 class ConversationList extends StatefulWidget {
   final String name;
@@ -24,11 +24,8 @@ class _ConversationListState extends State<ConversationList> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return ChatScreen(widget.name, widget.imageUrl);
-          },
-        ));
+        Navigator.pushNamed(context, Const.routeChatScreen,
+            arguments: {'imageUrl': widget.imageUrl, 'name': widget.name});
       },
       child: Container(
         padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),

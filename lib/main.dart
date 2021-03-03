@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_app/screens/channels_screen.dart';
+import 'package:flutter_chat_app/screens/chat_screen.dart';
 import 'package:flutter_chat_app/screens/home_page_screen.dart';
+import 'package:flutter_chat_app/screens/profile_screen.dart';
+import 'package:flutter_chat_app/utils/const.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,6 +19,9 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: HomePageScreen(),
+      routes: {
+        Const.routeChatScreen: (ctx) => ChatScreen(),
+      },
     );
   }
 }
