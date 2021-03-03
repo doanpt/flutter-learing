@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/models/chat_message.dart';
 
 class ChatScreen extends StatefulWidget {
+  final name;
+  final imageUrl;
+
+  ChatScreen(this.name, this.imageUrl);
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -43,7 +48,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     width: 2,
                   ),
                   CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/image1.jpeg"),
+                    backgroundImage: AssetImage(widget.imageUrl),
                     maxRadius: 20,
                   ),
                   SizedBox(
@@ -55,7 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "Kriss Benwat",
+                          widget.name,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),
