@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui/screens/sign_in_screen.dart';
+import 'package:flutter_ui/utils/const.dart';
 
 import 'screens/welcome_screen.dart';
 
@@ -33,6 +35,9 @@ class MyApp extends StatelessWidget {
           primaryColorLight: logoGreen),
       debugShowCheckedModeBanner: false,
       home: WelcomeScreen(),
+      routes: {
+        Const.signInScreenRoute: (ctx) => SignInScreen(),
+      },
     );
   }
 }

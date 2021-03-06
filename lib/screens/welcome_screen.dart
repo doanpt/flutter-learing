@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui/utils/const.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
@@ -54,7 +55,9 @@ class WelcomeScreen extends StatelessWidget {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: MaterialButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(Const.signInScreenRoute);
+              },
               elevation: 0,
               color: Theme.of(context).primaryColorLight,
               height: 52,
