@@ -56,7 +56,9 @@ class WelcomeScreen extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: MaterialButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(Const.signInScreenRoute);
+                Navigator.of(context).pushNamed(
+                  Const.firebaseSignInScreenRoute,
+                );
               },
               elevation: 0,
               color: Theme.of(context).primaryColorLight,
