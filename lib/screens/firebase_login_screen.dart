@@ -52,19 +52,27 @@ class FirebaseLoginScreen extends StatelessWidget {
               ),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.all(16)),
-                    backgroundColor: MaterialStateColor.resolveWith(
-                        (states) => Colors.yellow),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.black),
+                child: Builder(
+                  builder: (context) => ElevatedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(EdgeInsets.all(16)),
+                      backgroundColor: MaterialStateColor.resolveWith(
+                          (states) => Colors.yellow),
+                    ),
+                    onPressed: () {
+                      Scaffold.of(context).hideCurrentSnackBar();
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text('Login to app'),
+                        duration: Duration(seconds: 2),
+                      ));
+                    },
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.black),
+                    ),
                   ),
                 ),
               ),
