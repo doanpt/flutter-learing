@@ -15,15 +15,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/screens/home_shopping_screen.dart';
 import 'package:flutter_ui/screens/shopping_login_screen.dart';
-
+import 'package:flutter_ui/utils/colors.dart';
 
 class ShrineApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Shrine',
       home: HomeShoppingScreen(),
+      theme: _kShrineTheme,
       initialRoute: '/login',
       onGenerateRoute: _getRoute,
     );
@@ -40,4 +40,26 @@ class ShrineApp extends StatelessWidget {
       fullscreenDialog: true,
     );
   }
+}
+
+final ThemeData _kShrineTheme = _buildShrineTheme();
+
+ThemeData _buildShrineTheme() {
+  final ThemeData base = ThemeData.light();
+  return base.copyWith(
+      accentColor: kShrineBrown900,
+      primaryColor: kShrinePink100,
+      buttonTheme: base.buttonTheme.copyWith(
+        buttonColor: kShrinePink100,
+        colorScheme: base.colorScheme.copyWith(
+          secondary: kShrineBrown900,
+        ),
+      ),
+      buttonBarTheme: base.buttonBarTheme.copyWith(
+        buttonTextTheme: ButtonTextTheme.accent,
+      ),
+      scaffoldBackgroundColor: kShrineBackgroundWhite,
+      cardColor: kShrineBackgroundWhite,
+      textSelectionColor: kShrinePink100,
+      errorColor: kShrineErrorRed);
 }
