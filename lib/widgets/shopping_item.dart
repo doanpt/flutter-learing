@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui/models/product.dart';
+import 'package:intl/intl.dart';
 
 class ShoppingItem extends StatelessWidget {
+  final Product product;
+
+  ShoppingItem(this.product);
+
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final NumberFormat format = NumberFormat.simpleCurrency(
+        locale: Localizations.localeOf(context).toString());
     return Card(
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -10,7 +19,9 @@ class ShoppingItem extends StatelessWidget {
           AspectRatio(
             aspectRatio: 18.0 / 11.0,
             child: Image.asset(
-              'assets/images/flutter.png',
+              product.assetName,
+              package: product.assetPackage,
+              fit: BoxFit.cover,
             ),
           ),
           Padding(
@@ -18,9 +29,12 @@ class ShoppingItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Title'),
+                Text(product.name),
                 SizedBox(height: 8.0),
-                Text('Secondary Text'),
+                Text(
+                  format.format(product.price),
+                  style: theme.textTheme.subtitle2,
+                ),
               ],
             ),
           ),
