@@ -4,10 +4,12 @@ import 'package:flutter_ui/screens/home_shopping_screen.dart';
 import 'package:flutter_ui/screens/sign_in_screen.dart';
 import 'package:flutter_ui/utils/const.dart';
 
+import 'app.dart';
 import 'screens/welcome_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  // runApp(MyApp());
+  runApp(ShrineApp());
 }
 
 class MyApp extends StatelessWidget {
