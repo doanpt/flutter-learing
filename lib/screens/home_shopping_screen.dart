@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/models/product.dart';
 import 'package:flutter_ui/models/products_repository.dart';
-import 'package:flutter_ui/widgets/shopping_item.dart';
+import 'package:flutter_ui/widgets/asymmetric_view.dart';
 
 class HomeShoppingScreen extends StatelessWidget {
   final List<Product> products = ProductsRepository.loadProducts(Category.all);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,12 +41,14 @@ class HomeShoppingScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: GridView.builder(
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemBuilder: (ctx, index) => ShoppingItem(products[index]),
-        itemCount: products.length,
-      ),
+      // body: GridView.builder(
+      //   gridDelegate:
+      //       SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      //   itemBuilder: (ctx, index) => ProductItem(products[index]),
+      //   itemCount: products.length,
+      // ),
+      body: AsymmetricView(
+          products: ProductsRepository.loadProducts(Category.all)),
     );
   }
 }
