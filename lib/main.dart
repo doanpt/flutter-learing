@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui/screens/firebase_login_screen.dart';
+import 'package:flutter_ui/screens/home_shopping_screen.dart';
 import 'package:flutter_ui/screens/sign_in_screen.dart';
 import 'package:flutter_ui/utils/const.dart';
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
           accentColor: secondaryColor,
           primaryColorLight: logoGreen),
       debugShowCheckedModeBanner: false,
-      home: WelcomeScreen(),
+      home: HomeShoppingScreen(),
       routes: {
         Const.signInScreenRoute: (ctx) => SignInScreen(),
         Const.firebaseSignInScreenRoute: (ctx) => FirebaseLoginScreen(),
