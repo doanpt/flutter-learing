@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ui/utils/colors.dart';
 
 class ShoppingLoginPage extends StatefulWidget {
   @override
@@ -51,7 +52,10 @@ class _LoginPageState extends State<ShoppingLoginPage> {
             SizedBox(height: 80.0),
             Column(
               children: <Widget>[
-                Image.asset('assets/images/diamond.png'),
+                Image.asset(
+                  'assets/images/diamond.png',
+                  color: kShrineBlack,
+                ),
                 SizedBox(height: 16.0),
                 Text(
                   'SHRINE',

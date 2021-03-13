@@ -10,6 +10,7 @@ class HomeShoppingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        brightness: Brightness.dark,
         title: Text('SHRINE'),
         leading: IconButton(
           icon: Icon(
