@@ -54,6 +54,7 @@ flutter:
     - assets/images/dart_transparent.png
     - assets/images/flutter_bird.jpg
     - assets/images/flutter_blue.png
+    - assets/images/diamond.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

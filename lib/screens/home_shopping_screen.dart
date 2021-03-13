@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui/widgets/shopping_item.dart';
 
 class HomeShoppingScreen extends StatelessWidget {
   @override
@@ -35,6 +36,12 @@ class HomeShoppingScreen extends StatelessWidget {
             },
           ),
         ],
+      ),
+      body: GridView.builder(
+        gridDelegate:
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (ctx, index) => ShoppingItem(),
+        itemCount: 50,
       ),
     );
   }
