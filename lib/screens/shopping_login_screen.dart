@@ -35,7 +35,10 @@ class _LoginPageState extends State<ShoppingLoginPage> {
               children: <Widget>[
                 Image.asset('assets/images/diamond.png'),
                 SizedBox(height: 16.0),
-                Text('SHRINE'),
+                Text(
+                  'SHRINE',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
               ],
             ),
             SizedBox(height: 120.0),

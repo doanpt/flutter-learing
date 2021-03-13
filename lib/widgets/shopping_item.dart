@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 class ShoppingItem extends StatelessWidget {
   final Product product;
+  static final kTextBoxHeight = 65.0;
 
   ShoppingItem(this.product);
 
@@ -15,28 +16,33 @@ class ShoppingItem extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           AspectRatio(
             aspectRatio: 18.0 / 11.0,
             child: Image.asset(
               product.assetName,
               package: product.assetPackage,
-              fit: BoxFit.cover,
+              fit: BoxFit.fitWidth,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(product.name),
-                SizedBox(height: 8.0),
-                Text(
-                  format.format(product.price),
-                  style: theme.textTheme.subtitle2,
-                ),
-              ],
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                product.name,
+                style: theme.textTheme.headline6,
+                softWrap: false,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+              SizedBox(height: 4.0),
+              Text(
+                format.format(product.price),
+                style: theme.textTheme.subtitle2,
+              ),
+            ],
           ),
         ],
       ),
