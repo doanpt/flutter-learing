@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ui/screens/home_shopping_screen.dart';
 import 'package:flutter_ui/screens/shopping_login_screen.dart';
 import 'package:flutter_ui/utils/colors.dart';
+import 'package:flutter_ui/widgets/cut_corners_border.dart';
 
 class ShrineApp extends StatelessWidget {
   @override
@@ -67,13 +68,13 @@ ThemeData _buildShrineTheme() {
     accentTextTheme: _buildShrineTextTheme(base.accentTextTheme),
     primaryIconTheme: base.iconTheme.copyWith(color: kShrineBrown900),
     inputDecorationTheme: InputDecorationTheme(
-      focusedBorder: OutlineInputBorder(
+      focusedBorder: CutCornersBorder(
         borderSide: BorderSide(
           width: 2.0,
           color: kShrineBrown900,
         ),
       ),
-      border: OutlineInputBorder(),
+      border: CutCornersBorder(),
     ),
   );
 }

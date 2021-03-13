@@ -85,17 +85,21 @@ class _LoginPageState extends State<ShoppingLoginPage> {
             ),
             ButtonBar(
               children: <Widget>[
-                // TODO: Add a beveled rectangular border to CANCEL (103)
                 FlatButton(
                   child: Text('CANCEL'),
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                  ),
                   onPressed: () {
                     _usernameController.clear();
                     _passwordController.clear();
                   },
                 ),
-                // TODO: Add an elevation to NEXT (103)
-                // TODO: Add a beveled rectangular border to NEXT (103)
                 RaisedButton(
+                  elevation: 8,
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                  ),
                   child: Text('NEXT'),
                   onPressed: () {
                     Navigator.pop(context);
