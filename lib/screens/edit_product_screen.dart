@@ -63,11 +63,27 @@ class _EditProductScreenState extends State<EditProductScreen> {
     } else {
       Provider.of<ProductsProvider>(context, listen: false)
           .addProduct(_editedProduct)
-          .then((_) {
-        Navigator.of(context).pop();
+          .catchError((error) {
+        return showDialog<Null>(
+            context: context,
+            builder: (ctx) => AlertDialog(
+                  title: Text('An error occurs!!!'),
+                  content: Text('Something went wrong.'),
+                  actions: [
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.of(ctx).pop();
+                      },
+                      child: Text('Okay'),
+                    ),
+                  ],
+                ));
+      }).then((_) {
+        print("call final");
         setState(() {
           isLoading = false;
         });
+        Navigator.of(context).pop();
       });
     }
   }

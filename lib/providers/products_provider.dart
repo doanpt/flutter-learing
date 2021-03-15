@@ -85,7 +85,7 @@ class ProductsProvider with ChangeNotifier {
   List<Product> get favorites =>
       _products.where((prod) => prod.isFavorite == true).toList();
 
-  Future<void> addProduct(Product product) {
+  Future<dynamic> addProduct(Product product) {
     const url =
         "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products.json";
     return http
@@ -112,6 +112,9 @@ class ProductsProvider with ChangeNotifier {
       // _products.add(product);
       _products.add(newProduct);
       notifyListeners();
+    }).catchError((error) {
+      print(error);
+      throw error;
     });
   }
 
