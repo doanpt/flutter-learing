@@ -16,6 +16,28 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool isFavoriteOnly = false;
+  var _isInit = true;
+
+  @override
+  void initState() {
+    // README this only work if listen:false is added
+    // Provider.of<ProductsProvider>(context, listen: false).fetchProductsData();
+
+    //This is second ways to fetch data
+    // Future.delayed(Duration.zero).then((value){
+    //   Provider.of<ProductsProvider>(context).fetchProductsData();
+    // });
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_isInit) {
+      Provider.of<ProductsProvider>(context).fetchProductsData();
+    }
+    _isInit = false;
+  }
 
   @override
   Widget build(BuildContext context) {
