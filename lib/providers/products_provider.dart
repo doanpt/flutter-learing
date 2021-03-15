@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:my_shop/models/product.dart';
+import 'package:http/http.dart' as http;
 
 class ProductsProvider with ChangeNotifier {
   List<Product> _products = [
@@ -83,16 +86,33 @@ class ProductsProvider with ChangeNotifier {
       _products.where((prod) => prod.isFavorite == true).toList();
 
   void addProduct(Product product) {
-    //FIXME auto need to generated from server
-    final newProduct = Product(
-        id: DateTime.now().toString(),
-        title: product.title,
-        description: product.description,
-        price: product.price,
-        imageUrl: product.imageUrl);
-    // _products.add(product);
-    _products.add(newProduct);
-    notifyListeners();
+    const url =
+        "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products.json";
+    http
+        .post(
+      url,
+      body: json.encode(
+        {
+          'title': product.title,
+          'description': product.description,
+          'price': product.price,
+          'imageUrl': product.imageUrl,
+          'isFavorite': product.isFavorite
+        },
+      ),
+    )
+        .then((response) {
+      print(json.decode(response.body));
+      final newProduct = Product(
+          id: json.decode(response.body)['name'],
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl);
+      // _products.add(product);
+      _products.add(newProduct);
+      notifyListeners();
+    });
   }
 
   void updateProduct(String id, Product product) {
