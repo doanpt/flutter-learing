@@ -85,23 +85,22 @@ class ProductsProvider with ChangeNotifier {
   List<Product> get favorites =>
       _products.where((prod) => prod.isFavorite == true).toList();
 
-  Future<dynamic> addProduct(Product product) {
+  Future<dynamic> addProduct(Product product) async {
     const url =
-        "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products.json";
-    return http
-        .post(
-      url,
-      body: json.encode(
-        {
-          'title': product.title,
-          'description': product.description,
-          'price': product.price,
-          'imageUrl': product.imageUrl,
-          'isFavorite': product.isFavorite
-        },
-      ),
-    )
-        .then((response) {
+        "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products";
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode(
+          {
+            'title': product.title,
+            'description': product.description,
+            'price': product.price,
+            'imageUrl': product.imageUrl,
+            'isFavorite': product.isFavorite
+          },
+        ),
+      );
       print(json.decode(response.body));
       final newProduct = Product(
           id: json.decode(response.body)['name'],
@@ -111,11 +110,10 @@ class ProductsProvider with ChangeNotifier {
           imageUrl: product.imageUrl);
       // _products.add(product);
       _products.add(newProduct);
-      notifyListeners();
-    }).catchError((error) {
-      print(error);
-      throw error;
-    });
+    } catch (e) {
+      print(e);
+      throw e;
+    }
   }
 
   void updateProduct(String id, Product product) {
