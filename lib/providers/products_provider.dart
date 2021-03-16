@@ -141,12 +141,24 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
-  void updateProduct(String id, Product product) {
+  Future<void> updateProduct(String id, Product product) {
     final index = _products.indexWhere((prod) => prod.id == id);
     if (index >= 0) {
-      _products[index] = product;
+      final url =
+          "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products/$id.json";
+      return http
+          .patch(url,
+              body: json.encode({
+                'title': product.title,
+                'description': product.description,
+                'price': product.price,
+                'imageUrl': product.imageUrl
+              }))
+          .then((response) {
+        _products[index] = product;
+        notifyListeners();
+      });
     }
-    notifyListeners();
   }
 
   void deleteProduct(String id) {

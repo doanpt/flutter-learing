@@ -58,8 +58,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
     });
     if (_editedProduct.id != null) {
       Provider.of<ProductsProvider>(context, listen: false)
-          .updateProduct(_editedProduct.id, _editedProduct);
-      Navigator.of(context).pop();
+          .updateProduct(_editedProduct.id, _editedProduct)
+          .then((_) {
+        Navigator.of(context).pop();
+      });
     } else {
       try {
         await Provider.of<ProductsProvider>(context, listen: false)
@@ -157,7 +159,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       labelText: "Price",
                       hintText: "Enter the price",
                     ),
-                    initialValue: initValue['price'],
+                    initialValue: initValue['price'].toString(),
                     textInputAction: TextInputAction.next,
                     focusNode: _priceFocusNode,
                     onFieldSubmitted: (_) {
