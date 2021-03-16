@@ -40,15 +40,7 @@ class ShoppingCartScreen extends StatelessWidget {
                       backgroundColor: Theme.of(context).primaryColor,
                     ),
                   ),
-                  FlatButton(
-                    onPressed: () {
-                      Provider.of<OrderProvider>(context, listen: false).addOrder(
-                          cart.cartItems.values.toList(), cart.totalAmount);
-                      cart.clear();
-                    },
-                    child: Text('ORDER NOW'),
-                    textColor: Theme.of(context).primaryColor,
-                  )
+                  OrderButton(cart: cart)
                 ],
               ),
             ),
@@ -66,6 +58,53 @@ class ShoppingCartScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class OrderButton extends StatefulWidget {
+  const OrderButton({
+    Key key,
+    @required this.cart,
+  }) : super(key: key);
+
+  final CartProvider cart;
+
+  @override
+  _OrderButtonState createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  var _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
+          ? null
+          : () async {
+              try {
+                setState(() {
+                  _isLoading = true;
+                });
+                await Provider.of<OrderProvider>(context, listen: false)
+                    .addOrder(widget.cart.cartItems.values.toList(),
+                        widget.cart.totalAmount);
+
+                setState(() {
+                  _isLoading = false;
+                });
+                widget.cart.clear();
+              } catch (e) {
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Can\'t make a oder'),
+                  ),
+                );
+              }
+            },
+      child: _isLoading ? CircularProgressIndicator() : Text('ORDER NOW'),
+      textColor: Theme.of(context).primaryColor,
     );
   }
 }
