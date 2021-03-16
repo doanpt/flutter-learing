@@ -56,39 +56,34 @@ class _EditProductScreenState extends State<EditProductScreen> {
     setState(() {
       isLoading = true;
     });
-    if (_editedProduct.id != null) {
-      Provider.of<ProductsProvider>(context, listen: false)
-          .updateProduct(_editedProduct.id, _editedProduct)
-          .then((_) {
-        Navigator.of(context).pop();
-      });
-    } else {
-      try {
+    try {
+      if (_editedProduct.id != null) {
+        await Provider.of<ProductsProvider>(context, listen: false)
+            .updateProduct(_editedProduct.id, _editedProduct);
+      } else {
         await Provider.of<ProductsProvider>(context, listen: false)
             .addProduct(_editedProduct);
-      } catch (e) {
-        await showDialog<Null>(
-            context: context,
-            builder: (ctx) => AlertDialog(
-                  title: Text('An error occurs!!!'),
-                  content: Text('Something went wrong.'),
-                  actions: [
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.of(ctx).pop();
-                      },
-                      child: Text('Okay'),
-                    ),
-                  ],
-                ));
-      } finally {
-        print("call final");
-        setState(() {
-          isLoading = false;
-        });
-        Navigator.of(context).pop();
       }
+    } catch (e) {
+      await showDialog<Null>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+                title: Text('An error occurs!!!'),
+                content: Text('Something went wrong.'),
+                actions: [
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    },
+                    child: Text('Okay'),
+                  ),
+                ],
+              ));
     }
+    setState(() {
+      isLoading = false;
+    });
+    Navigator.of(context).pop();
   }
 
   @override

@@ -135,29 +135,31 @@ class ProductsProvider with ChangeNotifier {
           imageUrl: product.imageUrl);
       // _products.add(product);
       _products.add(newProduct);
+      notifyListeners();
     } catch (e) {
       print(e);
       throw e;
     }
   }
 
-  Future<void> updateProduct(String id, Product product) {
+  Future<void> updateProduct(String id, Product product) async {
     final index = _products.indexWhere((prod) => prod.id == id);
     if (index >= 0) {
-      final url =
-          "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products/$id.json";
-      return http
-          .patch(url,
-              body: json.encode({
-                'title': product.title,
-                'description': product.description,
-                'price': product.price,
-                'imageUrl': product.imageUrl
-              }))
-          .then((response) {
+      try {
+        final url =
+            "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products/$id.json";
+        await http.patch(url,
+            body: json.encode({
+              'title': product.title,
+              'description': product.description,
+              'price': product.price,
+              'imageUrl': product.imageUrl
+            }));
         _products[index] = product;
         notifyListeners();
-      });
+      } catch (e) {
+        throw e;
+      }
     }
   }
 
