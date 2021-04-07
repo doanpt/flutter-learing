@@ -9,6 +9,19 @@ class AuthProvider with ChangeNotifier {
   DateTime _expiryDate;
   String _userId;
 
+  bool get isAuth {
+    return _token != null;
+  }
+
+  String get token {
+    if (_expiryDate != null &&
+        _expiryDate.isAfter(DateTime.now()) &&
+        _token != null) {
+      return _token;
+    }
+    return null;
+  }
+
   Future<void> _authenticate(String email, password, urlSegment) async {
     final url =
         "https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyBLU_vmmlzUfaYhS4p4aY-_7oEo3zg-_ug";
@@ -20,9 +33,19 @@ class AuthProvider with ChangeNotifier {
             'returnSecureToken': true,
           }));
       final responseData = json.decode(response.body);
-      if(responseData['error'] != null) {
+      if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
       }
+      _token = responseData['idToken'];
+      _userId = responseData['localId'];
+      _expiryDate = DateTime.now().add(
+        Duration(
+          seconds: int.parse(
+            responseData['expiresIn'],
+          ),
+        ),
+      );
+      notifyListeners();
     } catch (e) {
       throw e;
     }
