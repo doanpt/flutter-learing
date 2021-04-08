@@ -93,9 +93,11 @@ class ProductsProvider with ChangeNotifier {
 
   ProductsProvider(this.authToken, this.userId, this._products);
 
-  Future<void> fetchProductsData() async {
+  Future<void> fetchProductsData([bool isFilterByUser = false]) async {
+    String filter =
+        isFilterByUser ? '&orderBy="creatorId"&equalTo="$userId"' : '';
     final productUrl =
-        "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products.json?auth=$authToken";
+        'https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products.json?auth=$authToken$filter';
     try {
       final response = await http.get(productUrl);
       print(response.body);
@@ -104,7 +106,7 @@ class ProductsProvider with ChangeNotifier {
         return;
       }
       final favoriteUrl =
-          "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/userFavorite/$userId.json?auth=$authToken";
+          'https://flutter-shop-94d0b-default-rtdb.firebaseio.com/userFavorite/$userId.json?auth=$authToken';
       final favoritesResponse = await http.get(favoriteUrl);
       final favoriteData = json.decode(favoritesResponse.body);
       final List<Product> loadedProducts = [];
@@ -137,6 +139,7 @@ class ProductsProvider with ChangeNotifier {
             'description': product.description,
             'price': product.price,
             'imageUrl': product.imageUrl,
+            'creatorId': userId,
           },
         ),
       );

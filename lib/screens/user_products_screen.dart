@@ -10,13 +10,13 @@ class UserProductsScreen extends StatelessWidget {
 
   Future<void> _refreshProducts(BuildContext context) async {
     await Provider.of<ProductsProvider>(context, listen: false)
-        .fetchProductsData();
+        .fetchProductsData(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<ProductsProvider>(context).products;
-    print('product data ${productsData.length}');
+    // final productsData = Provider.of<ProductsProvider>(context).products;
+    // print('product data ${productsData.length}');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -34,12 +34,23 @@ class UserProductsScreen extends StatelessWidget {
         ],
       ),
       drawer: AppDrawer(),
-      body: RefreshIndicator(
-        onRefresh: () => _refreshProducts(context),
-        child: ListView.builder(
-          itemBuilder: (context, index) => UserProductItem(productsData[index]),
-          itemCount: productsData.length,
-        ),
+      body: FutureBuilder(
+        future: _refreshProducts(context),
+        builder: (ctx, snapShot) =>
+            snapShot.connectionState == ConnectionState.waiting
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : RefreshIndicator(
+                    onRefresh: () => _refreshProducts(context),
+                    child: Consumer<ProductsProvider>(
+                      builder: (c, productsData, _) => ListView.builder(
+                        itemBuilder: (context, index) =>
+                            UserProductItem(productsData.products[index]),
+                        itemCount: productsData.products.length,
+                      ),
+                    ),
+                  ),
       ),
     );
   }
