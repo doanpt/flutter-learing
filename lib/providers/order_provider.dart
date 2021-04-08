@@ -11,35 +11,36 @@ class OrderProvider with ChangeNotifier {
 
   List<Order> get orders => _orders;
 
-  String _authToken;
+  final String _authToken;
+  final String userId;
 
-
-  OrderProvider(this._authToken);
+  OrderProvider(this._authToken, this.userId);
 
   Future<void> fetchAndSetOrders() async {
     final url =
-        "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/orders.json?auth=$_authToken";
+        "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/orders/$userId.json?auth=$_authToken";
     final response = await http.get(url);
     print(response.body);
     final List<Order> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
-    if (extractedData != null) {
-      extractedData.forEach((orderId, orderData) {
-        loadedOrders.add(Order(
-          id: orderId,
-          amount: orderData['amount'],
-          dateTime: DateTime.parse(orderData['dateTime']),
-          products: (orderData['products'] as List<dynamic>)
-              .map((item) => Cart(
-                    id: item['id'],
-                    title: item['title'],
-                    quantity: item['quantity'],
-                    price: item['price'],
-                  ))
-              .toList(),
-        ));
-      });
+    if (extractedData == null) {
+      return;
     }
+    extractedData.forEach((orderId, orderData) {
+      loadedOrders.add(Order(
+        id: orderId,
+        amount: orderData['amount'],
+        dateTime: DateTime.parse(orderData['dateTime']),
+        products: (orderData['products'] as List<dynamic>)
+            .map((item) => Cart(
+                  id: item['id'],
+                  title: item['title'],
+                  quantity: item['quantity'],
+                  price: item['price'],
+                ))
+            .toList(),
+      ));
+    });
     _orders = loadedOrders.reversed.toList();
     notifyListeners();
   }
@@ -48,7 +49,7 @@ class OrderProvider with ChangeNotifier {
     try {
       final timestamp = DateTime.now().toIso8601String();
       final url =
-          "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/orders.json?auth=$_authToken";
+          "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/orders/$userId.json?auth=$_authToken";
       final response = await http.post(url,
           body: json.encode({
             'amount': total,

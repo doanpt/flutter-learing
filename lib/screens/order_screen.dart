@@ -28,11 +28,16 @@ class OrderScreen extends StatelessWidget {
               );
             } else {
               return Consumer<OrderProvider>(
-                builder: (context, ordersData, child) => ListView.builder(
-                  itemBuilder: (context, index) =>
-                      OrderItem(ordersData.orders[index]),
-                  itemCount: ordersData.orders.length,
-                ),
+                builder: (context, ordersData, child) =>
+                    ordersData.orders.isEmpty
+                        ? Center(
+                            child: Text('No ordered'),
+                          )
+                        : ListView.builder(
+                            itemBuilder: (context, index) =>
+                                OrderItem(ordersData.orders[index]),
+                            itemCount: ordersData.orders.length,
+                          ),
               );
             }
           }
