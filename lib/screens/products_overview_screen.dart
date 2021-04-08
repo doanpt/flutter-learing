@@ -105,6 +105,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 childAspectRatio: 3 / 4,
               ),
               itemCount: products.length,
+              padding:
+                  EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
               itemBuilder: (ctx, index) => ChangeNotifierProvider.value(
                 value: products[index],
                 child: ProductItem(),

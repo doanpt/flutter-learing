@@ -104,6 +104,7 @@ class ProductsProvider with ChangeNotifier {
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
             id: prodId,
+            isFavorite: prodData['isFavorite'],
             title: prodData['title'],
             description: prodData['description'],
             price: prodData['price'],
@@ -153,14 +154,16 @@ class ProductsProvider with ChangeNotifier {
     if (index >= 0) {
       try {
         final url =
-            "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products/$id.json$authToken";
-        await http.patch(url,
+            "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products/$id.json?auth=$authToken";
+        final response = await http.patch(url,
             body: json.encode({
               'title': product.title,
               'description': product.description,
               'price': product.price,
-              'imageUrl': product.imageUrl
+              'imageUrl': product.imageUrl,
+              'isFavorite': product.isFavorite
             }));
+        print(response.body);
         _products[index] = product;
         notifyListeners();
       } catch (e) {
@@ -176,7 +179,7 @@ class ProductsProvider with ChangeNotifier {
       _products.removeAt(index);
       notifyListeners();
       final url =
-          "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products/$id.json$authToken";
+          "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products/$id.json?auth=$authToken";
       final response = await http.delete(url);
       if (response.statusCode >= 400) {
         _products.insert(index, existsProd);
