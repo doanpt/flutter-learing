@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_shop/exception/http_exception.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
   String _token;
@@ -54,6 +55,13 @@ class AuthProvider with ChangeNotifier {
       );
       _autoLogout();
       notifyListeners();
+      final prefs = await SharedPreferences.getInstance();
+      final userData = json.encode({
+        "token": _token,
+        "userId": _userId,
+        "expireTime": _expiryDate.toIso8601String()
+      });
+      prefs.setString("userData", userData);
     } catch (e) {
       throw e;
     }
@@ -81,5 +89,28 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> login(String email, String password) async {
     return _authenticate(email, password, "signInWithPassword");
+  }
+
+  Future<bool> tryAutoLogin() async {
+    final preferences = await SharedPreferences.getInstance();
+    if (!preferences.containsKey("userData")) {
+      print("auto login false");
+      return false;
+    }
+    final extractData =
+        json.decode(preferences.getString("userData")) as Map<String, Object>;
+
+    final expireDate = DateTime.parse(extractData['expireTime']);
+    if (expireDate.isBefore(DateTime.now())) {
+      print("auto login false due to expire");
+      return false;
+    }
+    _token = extractData['token'];
+    _userId = extractData['userId'];
+    _expiryDate = expireDate;
+    notifyListeners();
+    _autoLogout();
+    print("auto login true");
+    return true;
   }
 }

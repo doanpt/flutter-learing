@@ -3,6 +3,7 @@ import 'package:my_shop/providers/auth_provider.dart';
 import 'package:my_shop/screens/order_screen.dart';
 import 'package:my_shop/screens/user_products_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -51,8 +52,11 @@ class AppDrawer extends StatelessWidget {
               Icons.exit_to_app,
             ),
             title: Text('Logout'),
-            onTap: () {
+            onTap: () async {
+              final prefs = await SharedPreferences.getInstance();
+              prefs.remove("userData");
               Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed('/');
               Provider.of<AuthProvider>(context, listen: false).logout();
             },
           ),
