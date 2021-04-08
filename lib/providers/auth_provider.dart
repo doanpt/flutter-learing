@@ -71,11 +71,13 @@ class AuthProvider with ChangeNotifier {
     return _authenticate(email, password, "signUp");
   }
 
-  void logout() {
+  void logout() async {
     _token = null;
     _userId = null;
     _expiryDate = null;
     _authTimer.cancel();
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove("userData");
     notifyListeners();
   }
 

@@ -52,9 +52,7 @@ class AppDrawer extends StatelessWidget {
               Icons.exit_to_app,
             ),
             title: Text('Logout'),
-            onTap: () async {
-              final prefs = await SharedPreferences.getInstance();
-              prefs.remove("userData");
+            onTap: () {
               Navigator.of(context).pop();
               Navigator.of(context).pushReplacementNamed('/');
               Provider.of<AuthProvider>(context, listen: false).logout();
