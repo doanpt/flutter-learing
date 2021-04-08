@@ -89,25 +89,33 @@ class ProductsProvider with ChangeNotifier {
       _products.where((prod) => prod.isFavorite == true).toList();
 
   final String authToken;
+  final String userId;
 
-
-  ProductsProvider(this.authToken, this._products);
+  ProductsProvider(this.authToken, this.userId, this._products);
 
   Future<void> fetchProductsData() async {
-    final url =
+    final productUrl =
         "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/products.json?auth=$authToken";
     try {
-      final response = await http.get(url);
+      final response = await http.get(productUrl);
       print(response.body);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      if (extractedData == null) {
+        return;
+      }
+      final favoriteUrl =
+          "https://flutter-shop-94d0b-default-rtdb.firebaseio.com/userFavorite/$userId.json?auth=$authToken";
+      final favoritesResponse = await http.get(favoriteUrl);
+      final favoriteData = json.decode(favoritesResponse.body);
       final List<Product> loadedProducts = [];
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
             id: prodId,
-            isFavorite: prodData['isFavorite'],
             title: prodData['title'],
             description: prodData['description'],
             price: prodData['price'],
+            isFavorite:
+                favoriteData == null ? false : favoriteData[prodId] ?? false,
             imageUrl: prodData['imageUrl']));
       });
       _products = loadedProducts;
@@ -129,7 +137,6 @@ class ProductsProvider with ChangeNotifier {
             'description': product.description,
             'price': product.price,
             'imageUrl': product.imageUrl,
-            'isFavorite': product.isFavorite
           },
         ),
       );
@@ -161,7 +168,6 @@ class ProductsProvider with ChangeNotifier {
               'description': product.description,
               'price': product.price,
               'imageUrl': product.imageUrl,
-              'isFavorite': product.isFavorite
             }));
         print(response.body);
         _products[index] = product;
