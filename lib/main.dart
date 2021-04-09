@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_shop/helper/custom_route.dart';
 import 'package:my_shop/providers/auth_provider.dart';
 import 'package:my_shop/providers/cart_provider.dart';
 import 'package:my_shop/providers/order_provider.dart';
@@ -47,6 +48,13 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.deepOrange,
             fontFamily: 'Lato',
             visualDensity: VisualDensity.adaptivePlatformDensity,
+            //This effect to all transition r
+            pageTransitionsTheme: PageTransitionsTheme(
+              builders: {
+                TargetPlatform.android: CustomPageTransitionBuilder(),
+                TargetPlatform.iOS: CustomPageTransitionBuilder(),
+              }
+            )
           ),
           home: auth.isAuth
               ? ProductsOverviewScreen()
