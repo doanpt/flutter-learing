@@ -21,8 +21,9 @@ class ProductItem extends StatelessWidget {
             );
           },
           child: GridTile(
-            child: Image.network(
-              product.imageUrl,
+            child: FadeInImage(
+              placeholder: AssetImage('assets/images/product-placeholder.png'),
+              image: NetworkImage(product.imageUrl),
               fit: BoxFit.cover,
             ),
             footer: GridTileBar(
@@ -38,7 +39,8 @@ class ProductItem extends StatelessWidget {
                 ),
                 onPressed: () async {
                   try {
-                    await product.toggleFavorite(authData.token, authData.userId);
+                    await product.toggleFavorite(
+                        authData.token, authData.userId);
                   } catch (e) {
                     Scaffold.of(context).showSnackBar(
                       SnackBar(
