@@ -104,32 +104,6 @@ class _AuthCardState extends State<AuthCard>
   var _isLoading = false;
   final _passwordController = TextEditingController();
 
-  AnimationController _animationController;
-  Animation<Size> _heightAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(
-        milliseconds: 300,
-      ),
-    );
-    _heightAnimation = Tween<Size>(
-      begin: Size(double.infinity, 260),
-      end: Size(double.infinity, 320),
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.fastOutSlowIn,
-      ),
-    );
-    // _heightAnimation.addListener(() {
-    //   setState(() {});
-    // });
-  }
-
   void _submit() async {
     if (!_formKey.currentState.validate()) {
       // Invalid!
@@ -193,15 +167,17 @@ class _AuthCardState extends State<AuthCard>
       setState(() {
         _authMode = AuthMode.Signup;
       });
-      _animationController.forward();
     } else {
       setState(() {
         _authMode = AuthMode.Login;
       });
-      _animationController.reverse();
     }
   }
 
+//History
+// 1.1 AnimationController, Animation, Tween
+// 1.2 AnimationController,AnimatedBuilder
+// 1.3 AnimatedContainer
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -210,17 +186,17 @@ class _AuthCardState extends State<AuthCard>
         borderRadius: BorderRadius.circular(10.0),
       ),
       elevation: 8.0,
-      child: AnimatedBuilder(
-        animation: _heightAnimation,
-        builder: (ctx, content) => Container(
-          // height: _authMode == AuthMode.Signup ? 320 : 260,
-          height: _heightAnimation.value.height,
-          constraints: BoxConstraints(minHeight: _heightAnimation.value.height),
-          width: deviceSize.width * 0.75,
-          padding: EdgeInsets.all(16.0),
-          child: content,
+      child: AnimatedContainer(
+        duration: Duration(
+          milliseconds: 300,
         ),
-        //NOTE: child From does not rebuild when animated changed, so performance was improved
+        curve: Curves.fastOutSlowIn,
+        height: _authMode == AuthMode.Signup ? 320 : 260,
+        constraints: BoxConstraints(
+          minHeight: _authMode == AuthMode.Signup ? 320 : 260,
+        ),
+        width: deviceSize.width * 0.75,
+        padding: EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -297,11 +273,5 @@ class _AuthCardState extends State<AuthCard>
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _animationController.dispose();
   }
 }
