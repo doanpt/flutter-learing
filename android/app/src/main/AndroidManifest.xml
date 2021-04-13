@@ -2,6 +2,7 @@
     package="com.ddona.great_places_app">
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
    <application
         android:label="great_places_app"
         android:icon="@mipmap/ic_launcher">
