@@ -18,21 +18,31 @@ class PlacesListScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Consumer<PlacesProvider>(
-        builder: (ctx, places, c) => places.items.length <= 0
-            ? c
-            : ListView.builder(
-                itemBuilder: (ctx, index) => ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: FileImage(places.items[index].image),
+      body: FutureBuilder(
+        future: Provider.of<PlacesProvider>(context, listen: false)
+            .fetchAndSetPlaces(),
+        builder: (ctx, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Consumer<PlacesProvider>(
+                    builder: (ctx, places, c) => places.items.length <= 0
+                        ? c
+                        : ListView.builder(
+                            itemBuilder: (ctx, index) => ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage:
+                                    FileImage(places.items[index].image),
+                              ),
+                              title: Text(places.items[index].title),
+                            ),
+                            itemCount: places.items.length,
+                          ),
+                    child: Center(
+                      child: Text('There are no Places'),
+                    ),
                   ),
-                  title: Text(places.items[index].title),
-                ),
-                itemCount: places.items.length,
-              ),
-        child: Center(
-          child: Text('There are no Places'),
-        ),
       ),
     );
   }
