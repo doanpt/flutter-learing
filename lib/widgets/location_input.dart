@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:great_places_app/heplers/location_helper.dart';
+import 'package:great_places_app/models/places.dart';
 import 'package:great_places_app/screens/map_screen.dart';
 import 'package:location/location.dart';
 
 class LocationInput extends StatefulWidget {
+  Function selectLocation;
+
+  LocationInput(this.selectLocation);
+
   @override
   _LocationInputState createState() => _LocationInputState();
 }
@@ -12,16 +18,26 @@ class _LocationInputState extends State<LocationInput> {
   String _previewImageUrl;
 
   Future<void> getCurrentLocation() async {
-    final locData = await Location().getLocation();
+    try {
+      final locData = await Location().getLocation();
+      _showLocationPreview(locData.latitude, locData.longitude);
+      widget.selectLocation(locData.latitude, locData.longitude);
+    } catch (e) {
+      print(e);
+      return;
+    }
+  }
+
+  void _showLocationPreview(double lat, double lng) {
     final mapPreviewUrl = LocationHelper.generateLocationPreviewImage(
-        longitude: locData.longitude, latitude: locData.latitude);
+        longitude: lat, latitude: lng);
     setState(() {
       _previewImageUrl = mapPreviewUrl;
     });
   }
 
   Future<void> selectOnMap() async {
-    final selectedLocation = await Navigator.of(context).push(
+    final selectedLocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
         fullscreenDialog: true,
         builder: (ctx) => MapScreen(isSelecting: true),
@@ -30,6 +46,12 @@ class _LocationInputState extends State<LocationInput> {
     if (selectedLocation == null) {
       return;
     }
+    _showLocationPreview(selectedLocation.latitude, selectedLocation.longitude);
+    widget.selectLocation(PlaceLocation(
+        latitude: selectedLocation.latitude,
+        longitude: selectedLocation.longitude));
+    print(
+        'location: ${selectedLocation.latitude}  - ${selectedLocation.longitude} ');
   }
 
   @override
