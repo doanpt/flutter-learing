@@ -13,6 +13,7 @@ class Messages extends StatelessWidget {
         }
         final chatDocs = chatSnapshot.data.docs;
         return ListView.builder(
+          reverse: true,
           itemBuilder: (ctx, index) => Container(
             padding: EdgeInsets.all(10),
             child: Text(chatDocs[index]['text']),
@@ -20,7 +21,10 @@ class Messages extends StatelessWidget {
           itemCount: chatDocs.length,
         );
       },
-      stream: FirebaseFirestore.instance.collection('chat').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('chat')
+          .orderBy('createAt', descending: true)
+          .snapshots(),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:talk/widgets/auth_form.dart';
+import 'package:talk/widgets/auth/auth_form.dart';
 //Edit rule on firebase console to only allow auth user accept data
 // rules_version = '2';
 // service cloud.firestore {

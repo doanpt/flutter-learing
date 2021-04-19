@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:talk/widgets/message.dart';
+import 'package:talk/widgets/chat/message.dart';
+import 'package:talk/widgets/chat/new_message.dart';
 
 class ChatScreen extends StatelessWidget {
   @override
@@ -50,6 +51,7 @@ class ChatScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(child: Messages()),
+            NewMessage(),
           ],
         ),
       ),
@@ -70,13 +72,13 @@ class ChatScreen extends StatelessWidget {
       //               itemCount: snapshot.data.docs.length,
       //             ),
       // ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            FirebaseFirestore.instance
-                .collection('chats/SUIMhQCjzt4dCsTIJLIs/messages')
-                .add({'text': "This is added by floating button"});
-          }),
+      // floatingActionButton: FloatingActionButton(
+      //     child: Icon(Icons.add),
+      //     onPressed: () {
+      //       FirebaseFirestore.instance
+      //           .collection('chats/SUIMhQCjzt4dCsTIJLIs/messages')
+      //           .add({'text': "This is added by floating button"});
+      //     }),
     );
   }
 }
