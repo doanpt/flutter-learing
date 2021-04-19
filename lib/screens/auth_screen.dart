@@ -3,7 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:talk/widgets/auth_form.dart';
-
+//Edit rule on firebase console to only allow auth user accept data
+// rules_version = '2';
+// service cloud.firestore {
+//     match /databases/{database}/documents {
+//         match /users/{uid} {
+//             allow write: if request.auth !=null && request.auth.uid == uid
+//         }
+//         match /users/{uid} {
+//             allow read: if request.auth !=null
+//         }
+//         match /chats/{document=**} {
+//             allow read, create: if request.auth != null;
+//         }
+//     }
+// }
 class AuthScreen extends StatefulWidget {
   @override
   _AuthScreenState createState() => _AuthScreenState();
