@@ -18,7 +18,7 @@ class _AuthFormState extends State<AuthForm> {
     FocusScope.of(context).unfocus();
     if (isValid) {
       _formKey.currentState.save();
-      widget.submitAuthForm(email, password, email, _isLogin, context);
+      widget.submitAuthForm(email, password, username, _isLogin, context);
       print('Current is $_isLogin with $username - $password - $email');
       //
     }
