@@ -20,6 +20,7 @@ class Messages extends StatelessWidget {
           reverse: true,
           itemBuilder: (ctx, index) => Container(
             child: MessageBubble(
+              chatDocs[index]['username'],
               chatDocs[index]['text'],
               chatDocs[index]['userId'] == currentUid,
               key: ValueKey(chatDocs[index].id),
