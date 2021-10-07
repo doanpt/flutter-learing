@@ -1,5 +1,6 @@
 import 'package:car_control/controller/home_controller.dart';
 import 'package:car_control/utils/const.dart';
+import 'package:car_control/widgets/car_bottom_navigation.dart';
 import 'package:car_control/widgets/door_lock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,23 +14,7 @@ class HomeScreen extends StatelessWidget {
     return AnimatedBuilder(
       builder: (ctx, snapshot) {
         return Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.black,
-            items: [
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/Lock.svg'),
-                label: "",
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/Charge.svg'),
-                label: "",
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/icons/Temp.svg'),
-                label: "",
-              ),
-            ],
-          ),
+          bottomNavigationBar: CarBottomNavigation(),
           body: SafeArea(
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -83,3 +68,5 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+
