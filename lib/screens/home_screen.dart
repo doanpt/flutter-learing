@@ -15,8 +15,10 @@ class HomeScreen extends StatelessWidget {
       builder: (ctx, snapshot) {
         return Scaffold(
           bottomNavigationBar: CarBottomNavigation(
-            onTap: (index) {},
-            selectedTab: 0,
+            onTap: (index) {
+              _homeController.onBottomNavItemChange(index);
+            },
+            selectedTab: _homeController.selectedBottomTab,
           ),
           body: SafeArea(
             child: LayoutBuilder(
