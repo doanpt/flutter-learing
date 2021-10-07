@@ -12,8 +12,35 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   final HomeController _homeController = HomeController();
+  late AnimationController _batteryAnimationController;
+  late Animation<double> _animationBattery;
+
+  void setupBatteryAnimation() {
+    _batteryAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 600),
+    );
+
+    _animationBattery = CurvedAnimation(
+      parent: _batteryAnimationController,
+      curve: Interval(0.0, 0.5),
+    );
+  }
+
+  @override
+  void initState() {
+    setupBatteryAnimation();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _batteryAnimationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           bottomNavigationBar: CarBottomNavigation(
             onTap: (index) {
+              if (index == 1) {
+                _batteryAnimationController.forward();
+              } else if (_homeController.selectedBottomTab == 1 && index != 1) {
+                _batteryAnimationController.reverse(from: 0.7);
+              }
               _homeController.onBottomNavItemChange(index);
             },
             selectedTab: _homeController.selectedBottomTab,
@@ -29,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
           body: SafeArea(
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
+                print(_animationBattery.value);
                 return Stack(
                   alignment: Alignment.center,
                   children: [
@@ -110,9 +143,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    SvgPicture.asset(
-                      'assets/icons/Battery.svg',
-                      width: constraints.maxWidth * 0.45,
+                    Opacity(
+                      opacity: _animationBattery.value,
+                      child: SvgPicture.asset(
+                        'assets/icons/Battery.svg',
+                        width: constraints.maxWidth * 0.45,
+                      ),
                     )
                   ],
                 );
@@ -121,7 +157,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         );
       },
-      animation: _homeController,
+      animation: Listenable.merge(
+        [
+          _homeController,
+          _batteryAnimationController,
+        ],
+      ),
     );
   }
 }
