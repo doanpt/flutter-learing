@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen>
   final HomeController _homeController = HomeController();
   late AnimationController _batteryAnimationController;
   late Animation<double> _animationBattery;
+  late Animation<double> _animationBatteryStatus;
 
   void setupBatteryAnimation() {
     _batteryAnimationController = AnimationController(
@@ -27,7 +28,14 @@ class _HomeScreenState extends State<HomeScreen>
 
     _animationBattery = CurvedAnimation(
       parent: _batteryAnimationController,
+      //Duration 600=> 0.0 to 0.5 mean animation will start from 0 and end in 300
       curve: Interval(0.0, 0.5),
+    );
+
+    _animationBatteryStatus = CurvedAnimation(
+      parent: _batteryAnimationController,
+      //Duration 600=> 0.6 to 1 mean animation will start from 360 and end in 600
+      curve: Interval(0.6, 1),
     );
   }
 
@@ -151,8 +159,11 @@ class _HomeScreenState extends State<HomeScreen>
                         width: constraints.maxWidth * 0.45,
                       ),
                     ),
-                    BatteryStatus(
-                      constraints: constraints,
+                    Opacity(
+                      opacity: _animationBatteryStatus.value,
+                      child: BatteryStatus(
+                        constraints: constraints,
+                      ),
                     )
                   ],
                 );
