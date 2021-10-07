@@ -1,4 +1,5 @@
 import 'package:car_control/controller/home_controller.dart';
+import 'package:car_control/utils/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -29,9 +30,18 @@ class HomeScreen extends StatelessWidget {
                       right: constraints.maxWidth * 0.05,
                       child: GestureDetector(
                         onTap: _homeController.updateRightDoorLock,
-                        child: _homeController.isRightDoorLock
-                            ? SvgPicture.asset('assets/icons/door_lock.svg')
-                            : SvgPicture.asset('assets/icons/door_unlock.svg'),
+                        child: AnimatedSwitcher(
+                          duration: defaultDuration,
+                          child: _homeController.isRightDoorLock
+                              ? SvgPicture.asset(
+                                  'assets/icons/door_lock.svg',
+                                  key: ValueKey("lock"),
+                                )
+                              : SvgPicture.asset(
+                                  'assets/icons/door_unlock.svg',
+                                  key: ValueKey("unlock"),
+                                ),
+                        ),
                       ),
                     ),
                   ],
