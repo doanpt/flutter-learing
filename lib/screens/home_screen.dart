@@ -159,10 +159,15 @@ class _HomeScreenState extends State<HomeScreen>
                         width: constraints.maxWidth * 0.45,
                       ),
                     ),
-                    Opacity(
-                      opacity: _animationBatteryStatus.value,
-                      child: BatteryStatus(
-                        constraints: constraints,
+                    Positioned(
+                      top: 50 * (1 - _animationBatteryStatus.value),
+                      height: constraints.maxHeight,
+                      width: constraints.maxWidth,
+                      child: Opacity(
+                        opacity: _animationBatteryStatus.value,
+                        child: BatteryStatus(
+                          constraints: constraints,
+                        ),
                       ),
                     )
                   ],
