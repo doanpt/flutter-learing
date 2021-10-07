@@ -37,6 +37,7 @@ class HomeScreen extends StatelessWidget {
                             scale: animation,
                             child: child,
                           ),
+                          switchInCurve: Curves.easeInOutBack,
                           child: _homeController.isRightDoorLock
                               ? SvgPicture.asset(
                                   'assets/icons/door_lock.svg',
