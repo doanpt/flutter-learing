@@ -32,6 +32,11 @@ class HomeScreen extends StatelessWidget {
                         onTap: _homeController.updateRightDoorLock,
                         child: AnimatedSwitcher(
                           duration: defaultDuration,
+                          transitionBuilder: (child, animation) =>
+                              ScaleTransition(
+                            scale: animation,
+                            child: child,
+                          ),
                           child: _homeController.isRightDoorLock
                               ? SvgPicture.asset(
                                   'assets/icons/door_lock.svg',
