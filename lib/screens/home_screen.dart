@@ -1,5 +1,6 @@
 import 'package:car_control/controller/home_controller.dart';
 import 'package:car_control/utils/const.dart';
+import 'package:car_control/widgets/battery_status.dart';
 import 'package:car_control/widgets/car_bottom_navigation.dart';
 import 'package:car_control/widgets/door_lock.dart';
 import 'package:flutter/material.dart';
@@ -149,6 +150,9 @@ class _HomeScreenState extends State<HomeScreen>
                         'assets/icons/Battery.svg',
                         width: constraints.maxWidth * 0.45,
                       ),
+                    ),
+                    BatteryStatus(
+                      constraints: constraints,
                     )
                   ],
                 );
