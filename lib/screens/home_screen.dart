@@ -1,5 +1,6 @@
 import 'package:car_control/controller/home_controller.dart';
 import 'package:car_control/utils/const.dart';
+import 'package:car_control/widgets/door_lock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -28,26 +29,30 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Positioned(
                       right: constraints.maxWidth * 0.05,
-                      child: GestureDetector(
-                        onTap: _homeController.updateRightDoorLock,
-                        child: AnimatedSwitcher(
-                          duration: defaultDuration,
-                          transitionBuilder: (child, animation) =>
-                              ScaleTransition(
-                            scale: animation,
-                            child: child,
-                          ),
-                          switchInCurve: Curves.easeInOutBack,
-                          child: _homeController.isRightDoorLock
-                              ? SvgPicture.asset(
-                                  'assets/icons/door_lock.svg',
-                                  key: ValueKey("lock"),
-                                )
-                              : SvgPicture.asset(
-                                  'assets/icons/door_unlock.svg',
-                                  key: ValueKey("unlock"),
-                                ),
-                        ),
+                      child: DoorLock(
+                        press: _homeController.updateRightDoorLock,
+                        isLock: _homeController.isRightDoorLock,
+                      ),
+                    ),
+                    Positioned(
+                      left: constraints.maxWidth * 0.05,
+                      child: DoorLock(
+                        press: _homeController.updateLeftDoorLock,
+                        isLock: _homeController.isLeftDoorLock,
+                      ),
+                    ),
+                    Positioned(
+                      top: constraints.maxHeight * 0.15,
+                      child: DoorLock(
+                        press: _homeController.updateBonnetDoorLock,
+                        isLock: _homeController.isBonnetLock,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: constraints.maxHeight * 0.18,
+                      child: DoorLock(
+                        press: _homeController.updateLeftDoorLock,
+                        isLock: _homeController.isTrunkLock,
                       ),
                     ),
                   ],
