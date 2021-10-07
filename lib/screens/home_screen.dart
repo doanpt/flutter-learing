@@ -14,7 +14,10 @@ class HomeScreen extends StatelessWidget {
     return AnimatedBuilder(
       builder: (ctx, snapshot) {
         return Scaffold(
-          bottomNavigationBar: CarBottomNavigation(),
+          bottomNavigationBar: CarBottomNavigation(
+            onTap: (index) {},
+            selectedTab: 0,
+          ),
           body: SafeArea(
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -68,5 +71,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
