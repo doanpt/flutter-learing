@@ -48,25 +48,60 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Positioned(
-                      left: constraints.maxWidth * 0.05,
-                      child: DoorLock(
-                        press: _homeController.updateLeftDoorLock,
-                        isLock: _homeController.isLeftDoorLock,
+                    AnimatedPositioned(
+                      left: _homeController.selectedBottomTab == 0
+                          ? constraints.maxWidth * 0.05
+                          : constraints.maxWidth / 2,
+                      duration: defaultDuration,
+                      child: AnimatedOpacity(
+                        opacity: _homeController.selectedBottomTab == 0 ? 1 : 0,
+                        duration: defaultDuration,
+                        child: DoorLock(
+                          press: _homeController.updateLeftDoorLock,
+                          isLock: _homeController.isLeftDoorLock,
+                        ),
                       ),
                     ),
-                    Positioned(
-                      top: constraints.maxHeight * 0.15,
-                      child: DoorLock(
-                        press: _homeController.updateBonnetDoorLock,
-                        isLock: _homeController.isBonnetLock,
+                    AnimatedPositioned(
+                      top: _homeController.selectedBottomTab == 0
+                          ? constraints.maxHeight * 0.15
+                          : constraints.maxHeight / 2,
+                      duration: defaultDuration,
+                      child: AnimatedOpacity(
+                        opacity: _homeController.selectedBottomTab == 0 ? 1 : 0,
+                        duration: defaultDuration,
+                        child: DoorLock(
+                          press: _homeController.updateBonnetDoorLock,
+                          isLock: _homeController.isBonnetLock,
+                        ),
                       ),
                     ),
-                    Positioned(
-                      bottom: constraints.maxHeight * 0.18,
-                      child: DoorLock(
-                        press: _homeController.updateLeftDoorLock,
-                        isLock: _homeController.isTrunkLock,
+                    AnimatedPositioned(
+                      top: _homeController.selectedBottomTab == 0
+                          ? constraints.maxHeight * 0.15
+                          : constraints.maxHeight / 2,
+                      duration: defaultDuration,
+                      child: AnimatedOpacity(
+                        opacity: _homeController.selectedBottomTab == 0 ? 1 : 0,
+                        duration: defaultDuration,
+                        child: DoorLock(
+                          press: _homeController.updateBonnetDoorLock,
+                          isLock: _homeController.isBonnetLock,
+                        ),
+                      ),
+                    ),
+                    AnimatedPositioned(
+                      bottom: _homeController.selectedBottomTab == 0
+                          ? constraints.maxHeight * 0.15
+                          : constraints.maxHeight / 2,
+                      duration: defaultDuration,
+                      child: AnimatedOpacity(
+                        opacity: _homeController.selectedBottomTab == 0 ? 1 : 0,
+                        duration: defaultDuration,
+                        child: DoorLock(
+                          press: _homeController.updateLeftDoorLock,
+                          isLock: _homeController.isTrunkLock,
+                        ),
                       ),
                     ),
                   ],
