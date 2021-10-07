@@ -5,8 +5,14 @@ import 'package:car_control/widgets/door_lock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final HomeController _homeController = HomeController();
 
   @override
@@ -104,6 +110,10 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SvgPicture.asset(
+                      'assets/icons/Battery.svg',
+                      width: constraints.maxWidth * 0.45,
+                    )
                   ],
                 );
               },
