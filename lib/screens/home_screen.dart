@@ -39,8 +39,9 @@ class HomeScreen extends StatelessWidget {
                           ? constraints.maxWidth * 0.05
                           : constraints.maxWidth / 2,
                       duration: defaultDuration,
-                      child: Opacity(
+                      child: AnimatedOpacity(
                         opacity: _homeController.selectedBottomTab == 0 ? 1 : 0,
+                        duration: defaultDuration,
                         child: DoorLock(
                           press: _homeController.updateRightDoorLock,
                           isLock: _homeController.isRightDoorLock,

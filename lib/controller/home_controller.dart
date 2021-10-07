@@ -11,6 +11,7 @@ class HomeController extends ChangeNotifier {
 
   void onBottomNavItemChange(int index) {
     selectedBottomTab = index;
+    print("index $index");
     notifyListeners();
   }
 
