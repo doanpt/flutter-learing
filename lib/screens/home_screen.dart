@@ -13,6 +13,23 @@ class HomeScreen extends StatelessWidget {
     return AnimatedBuilder(
       builder: (ctx, snapshot) {
         return Scaffold(
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Colors.black,
+            items: [
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset('assets/icons/Lock.svg'),
+                label: "",
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset('assets/icons/Charge.svg'),
+                label: "",
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset('assets/icons/Temp.svg'),
+                label: "",
+              ),
+            ],
+          ),
           body: SafeArea(
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
