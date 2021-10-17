@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_app/detail_controller.dart';
 
 import 'content_page.dart';
 import 'my_home_page.dart';
@@ -16,6 +17,7 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   List img = [];
+  final DetailController fav = Get.put(DetailController());
 
   void _readData() async {
     await DefaultAssetBundle.of(context).loadString("json/img.json").then(
@@ -38,6 +40,7 @@ class _DetailPageState extends State<DetailPage> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     int _currentIndex = 0;
+
     return Scaffold(
       body: Container(
         color: Color(0xFFc5e5f3),
@@ -362,8 +365,11 @@ class _DetailPageState extends State<DetailPage> {
                       borderRadius: BorderRadius.circular(20),
                       color: Color(0xFFfbc33e),
                     ),
-                    child: Icon(
-                      Icons.favorite_border,
+                    child: IconButton(
+                      onPressed: () {
+                        fav.favCounter();
+                      },
+                      icon: Icon(Icons.favorite_border),
                       color: Colors.white,
                     ),
                   ),
