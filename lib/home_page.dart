@@ -55,6 +55,37 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 30,
               ),
+              Row(
+                children: [
+                  Text(
+                    "Training",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: AppColor.homePageSubtitle,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    "Details",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: AppColor.homePageDetail,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Icon(
+                    Icons.arrow_forward,
+                    size: 20,
+                    color: AppColor.homePageIcons,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
