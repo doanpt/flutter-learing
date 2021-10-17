@@ -26,12 +26,15 @@ class _DetailPageState extends State<DetailPage> {
         child: Stack(
           children: [
             Positioned(
-                top: 50,
-                left: 10,
-                child: IconButton(
-                  onPressed: () => Get.back(),
-                  icon: Icon(Icons.arrow_back_ios),
-                )),
+              top: 50,
+              left: 10,
+              child: IconButton(
+                onPressed: () => Get.back(),
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                ),
+              ),
+            ),
             Positioned(
               top: 120,
               left: 0,
@@ -63,9 +66,10 @@ class _DetailPageState extends State<DetailPage> {
                           Text(
                             Get.arguments['name'],
                             style: TextStyle(
-                                color: Color(0xFF3b3f42),
-                                fontSize: 18,
-                                decoration: TextDecoration.none),
+                              color: Color(0xFF3b3f42),
+                              fontSize: 18,
+                              decoration: TextDecoration.none,
+                            ),
                           ),
                           SizedBox(
                             height: 5,
@@ -73,9 +77,10 @@ class _DetailPageState extends State<DetailPage> {
                           Text(
                             "Top Level",
                             style: TextStyle(
-                                color: Color(0xFFfdebb2),
-                                fontSize: 12,
-                                decoration: TextDecoration.none),
+                              color: Color(0xFFfdebb2),
+                              fontSize: 12,
+                              decoration: TextDecoration.none,
+                            ),
                           ),
                         ],
                       ),
@@ -84,8 +89,9 @@ class _DetailPageState extends State<DetailPage> {
                         width: 70,
                         height: 120,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color(0xFFf3fafc)),
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color(0xFFf3fafc),
+                        ),
                         child: Center(
                           child: Icon(
                             Icons.notifications,
@@ -120,18 +126,24 @@ class _DetailPageState extends State<DetailPage> {
                 width: width,
                 height: 250,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Color(0xFFfcfffe),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 20,
-                          spreadRadius: 1,
-                          offset: Offset(0, 10),
-                          color: Colors.grey.withOpacity(0.2))
-                    ]),
+                  borderRadius: BorderRadius.circular(20),
+                  color: Color(0xFFfcfffe),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 20,
+                      spreadRadius: 1,
+                      offset: Offset(0, 10),
+                      color: Colors.grey.withOpacity(0.2),
+                    )
+                  ],
+                ),
                 child: Container(
                   margin: const EdgeInsets.only(
-                      left: 20, top: 20, bottom: 20, right: 20),
+                    left: 20,
+                    top: 20,
+                    bottom: 20,
+                    right: 20,
+                  ),
                   child: Column(
                     children: [
                       Container(
@@ -140,9 +152,13 @@ class _DetailPageState extends State<DetailPage> {
                             Text(
                               Get.arguments['title'],
                               style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.w500),
+                                fontSize: 30,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                            Expanded(child: Container())
+                            Expanded(
+                              child: Container(),
+                            ),
                           ],
                         ),
                       ),
@@ -151,8 +167,10 @@ class _DetailPageState extends State<DetailPage> {
                         width: width,
                         child: Text(
                           Get.arguments['text'],
-                          style:
-                              TextStyle(fontSize: 20, color: Color(0xFFb8b8b8)),
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Color(0xFFb8b8b8),
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -181,24 +199,29 @@ class _DetailPageState extends State<DetailPage> {
                                   Text(
                                     Get.arguments['name'],
                                     style: TextStyle(
-                                        fontSize: 18,
-                                        color: Color(0xFF303030),
-                                        fontWeight: FontWeight.w700),
+                                      fontSize: 18,
+                                      color: Color(0xFF303030),
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                   Text(
                                     "Deadline",
                                     style: TextStyle(
-                                        fontSize: 18, color: Color(0xFFacacac)),
-                                  )
+                                      fontSize: 18,
+                                      color: Color(0xFFacacac),
+                                    ),
+                                  ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(Icons.monetization_on,
-                                  color: Color(0xFFfb8483)),
+                              Icon(
+                                Icons.monetization_on,
+                                color: Color(0xFFfb8483),
+                              ),
                               SizedBox(
                                 width: 5,
                               ),
@@ -216,16 +239,21 @@ class _DetailPageState extends State<DetailPage> {
                                   Text(
                                     "Prize",
                                     style: TextStyle(
-                                        fontSize: 18, color: Color(0xFFacacac)),
-                                  )
+                                      fontSize: 18,
+                                      color: Color(0xFFacacac),
+                                    ),
+                                  ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(Icons.star, color: Color(0xFFfbc33e)),
+                              Icon(
+                                Icons.star,
+                                color: Color(0xFFfbc33e),
+                              ),
                               SizedBox(
                                 width: 5,
                               ),
@@ -236,44 +264,54 @@ class _DetailPageState extends State<DetailPage> {
                                   Text(
                                     "Top Level",
                                     style: TextStyle(
-                                        fontSize: 18,
-                                        color: Color(0xFF303030),
-                                        fontWeight: FontWeight.w700),
+                                      fontSize: 18,
+                                      color: Color(0xFF303030),
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                   Text(
                                     "Entry",
                                     style: TextStyle(
-                                        fontSize: 18, color: Color(0xFFacacac)),
-                                  )
+                                      fontSize: 18,
+                                      color: Color(0xFFacacac),
+                                    ),
+                                  ),
                                 ],
-                              )
+                              ),
                             ],
                           )
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
             Positioned(
-                top: 540,
-                left: 25,
-                height: 50,
-                child: Container(
-                  child: RichText(
-                      text: TextSpan(
-                          text: "Total Participants ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20,
-                              color: Colors.black),
-                          children: [
-                        TextSpan(
-                            text: "(11)",
-                            style: TextStyle(color: Color(0xFFfbc33e)))
-                      ])),
-                )),
+              top: 540,
+              left: 25,
+              height: 50,
+              child: Container(
+                child: RichText(
+                  text: TextSpan(
+                    text: "Total Participants ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "(11)",
+                        style: TextStyle(
+                          color: Color(0xFFfbc33e),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             //images
             Stack(children: [
               for (int i = 0; i < 5; i++)
@@ -284,36 +322,46 @@ class _DetailPageState extends State<DetailPage> {
                   height: 50,
                   child: Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        image: DecorationImage(
-                            image: AssetImage("img/background.jpg"),
-                            fit: BoxFit.cover)),
+                      borderRadius: BorderRadius.circular(25),
+                      image: DecorationImage(
+                        image: AssetImage("img/background.jpg"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                )
+                ),
             ]),
             //favourite
             Positioned(
-                top: 670,
-                left: 25,
-                child: Row(
-                  children: [
-                    Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color(0xFFfbc33e)),
-                        child:
-                            Icon(Icons.favorite_border, color: Colors.white)),
-                    SizedBox(
-                      width: 10,
+              top: 670,
+              left: 25,
+              child: Row(
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Color(0xFFfbc33e),
                     ),
-                    Text(
-                      "Add to favorite",
-                      style: TextStyle(color: Color(0xFFfbc33e), fontSize: 18),
-                    )
-                  ],
-                ))
+                    child: Icon(
+                      Icons.favorite_border,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Add to favorite",
+                    style: TextStyle(
+                      color: Color(0xFFfbc33e),
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             //))
           ],
         ),
