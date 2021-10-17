@@ -29,7 +29,7 @@ class _DetailPageState extends State<DetailPage> {
                 top: 50,
                 left: 10,
                 child: IconButton(
-                  onPressed: () => null,
+                  onPressed: () => Get.back(),
                   icon: Icon(Icons.arrow_back_ios),
                 )),
             Positioned(
@@ -51,7 +51,7 @@ class _DetailPageState extends State<DetailPage> {
                     children: [
                       CircleAvatar(
                         radius: 40,
-                        backgroundImage: AssetImage("img/background.jpg"),
+                        backgroundImage: AssetImage(Get.arguments['img']),
                       ),
                       SizedBox(
                         width: 10,
@@ -61,7 +61,7 @@ class _DetailPageState extends State<DetailPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "name",
+                            Get.arguments['name'],
                             style: TextStyle(
                                 color: Color(0xFF3b3f42),
                                 fontSize: 18,
@@ -135,21 +135,22 @@ class _DetailPageState extends State<DetailPage> {
                   child: Column(
                     children: [
                       Container(
-                          child: Row(
-                        children: [
-                          Text(
-                            "Title",
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.w500),
-                          ),
-                          Expanded(child: Container())
-                        ],
-                      )),
+                        child: Row(
+                          children: [
+                            Text(
+                              Get.arguments['title'],
+                              style: TextStyle(
+                                  fontSize: 30, fontWeight: FontWeight.w500),
+                            ),
+                            Expanded(child: Container())
+                          ],
+                        ),
+                      ),
                       SizedBox(height: 20),
                       Container(
                         width: width,
                         child: Text(
-                          "Text",
+                          Get.arguments['text'],
                           style:
                               TextStyle(fontSize: 20, color: Color(0xFFb8b8b8)),
                         ),
@@ -178,7 +179,7 @@ class _DetailPageState extends State<DetailPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "name",
+                                    Get.arguments['name'],
                                     style: TextStyle(
                                         fontSize: 18,
                                         color: Color(0xFF303030),
@@ -206,7 +207,7 @@ class _DetailPageState extends State<DetailPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "499",
+                                    Get.arguments['prize'],
                                     style: TextStyle(
                                         fontSize: 18,
                                         color: Color(0xFF303030),

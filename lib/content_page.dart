@@ -164,7 +164,16 @@ class _ContentPageState extends State<ContentPage> {
                 itemCount: info.length,
                 itemBuilder: (_, i) {
                   return GestureDetector(
-
+                    onTap: () {
+                      Get.toNamed("/detail", arguments: {
+                        'title': info[i]['title'].toString(),
+                        'text': info[i]['text'].toString(),
+                        'name': info[i]['name'].toString(),
+                        'img': info[i]['img'].toString(),
+                        'time': info[i]['time'].toString(),
+                        'prize': info[i]['prize'].toString(),
+                      });
+                    },
                     child: Container(
                       padding: const EdgeInsets.only(left: 20, top: 20),
                       height: 220,
