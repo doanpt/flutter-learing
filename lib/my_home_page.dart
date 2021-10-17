@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_app/content_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -83,7 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                     ),
-                    onPressed: () => Container(),
+                    onPressed: () =>Get.to(() => ContentPage()),
+                    // Get.toNamed("/detail", arguments: {
+                    //   'title': "MyTitle",
+                    //   'price':250,
+                    // }),
                     child: Text(
                       "Get started",
                       style: TextStyle(color: Colors.white),
