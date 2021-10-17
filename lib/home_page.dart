@@ -183,6 +183,87 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                height: 180,
+                width: double.infinity,
+                child: Stack(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 30),
+                      width: double.infinity,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                        image: DecorationImage(
+                          image: AssetImage("assets/card.jpg"),
+                          fit: BoxFit.fill,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 40,
+                            offset: Offset(8, 10),
+                            color: AppColor.gradientSecond.withOpacity(0.4),
+                          ),
+                          BoxShadow(
+                            blurRadius: 40,
+                            offset: Offset(-2, -6),
+                            color: AppColor.gradientSecond.withOpacity(0.4),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(right: 220, bottom: 40),
+                      height: 200,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/figure.png"),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: double.maxFinite,
+                      height: 100,
+                      margin: EdgeInsets.only(left: 130, top: 50),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "You are doing great",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppColor.homePageDetail,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              text: "Keep it up\n",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColor.homePagePlanColor,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: "Stick to your plan",
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
