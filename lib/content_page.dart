@@ -19,19 +19,21 @@ class _ContentPageState extends State<ContentPage> {
 
   void _readData() async {
     await DefaultAssetBundle.of(context).loadString("json/recent.json").then(
-          (s) => {
-            setState(() {
-              list = json.decode(s);
-            })
-          },
-        );
+          (s) =>
+      {
+        setState(() {
+          list = json.decode(s);
+        })
+      },
+    );
     await DefaultAssetBundle.of(context).loadString("json/detail.json").then(
-          (s) => {
-            setState(() {
-              info = json.decode(s);
-            })
-          },
-        );
+          (s) =>
+      {
+        setState(() {
+          info = json.decode(s);
+        })
+      },
+    );
   }
 
   @override
@@ -43,8 +45,14 @@ class _ContentPageState extends State<ContentPage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    double width = MediaQuery
+        .of(context)
+        .size
+        .width;
     int _currentIndex = 0;
     return Scaffold(
       body: Container(
@@ -135,7 +143,7 @@ class _ContentPageState extends State<ContentPage> {
                   Text(
                     "Show all",
                     style: TextStyle(
-                        color: Color(0xFFcfd5b3),
+                        color: Colors.amber,
                         fontSize: 15,
                         decoration: TextDecoration.none),
                   ),
@@ -146,9 +154,15 @@ class _ContentPageState extends State<ContentPage> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFFfdc33c)),
-                    child: GestureDetector(),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.orange,
+                    ),
+                    child: GestureDetector(
+                      child: Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.white,
+                      ),
+                    ),
                   )
                 ],
               ),
@@ -177,7 +191,10 @@ class _ContentPageState extends State<ContentPage> {
                     child: Container(
                       padding: const EdgeInsets.only(left: 20, top: 20),
                       height: 220,
-                      width: MediaQuery.of(context).size.width - 20,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width - 20,
                       margin: const EdgeInsets.only(right: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
@@ -261,7 +278,7 @@ class _ContentPageState extends State<ContentPage> {
                   Text(
                     "Show all",
                     style: TextStyle(
-                        color: Color(0xFFcfd5b3),
+                        color: Colors.amber,
                         fontSize: 15,
                         decoration: TextDecoration.none),
                   ),
@@ -273,9 +290,14 @@ class _ContentPageState extends State<ContentPage> {
                     height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Color(0xFFfdc33c),
+                      color: Colors.orange,
                     ),
-                    child: GestureDetector(),
+                    child: GestureDetector(
+                      child: Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.white,
+                      ),
+                    ),
                   )
                 ],
               ),
@@ -290,7 +312,7 @@ class _ContentPageState extends State<ContentPage> {
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  itemCount: 4,
+                  itemCount: list.length,
                   itemBuilder: (_, i) {
                     return Container(
                       width: width,
@@ -307,7 +329,7 @@ class _ContentPageState extends State<ContentPage> {
                           children: [
                             CircleAvatar(
                               radius: 40,
-                              backgroundImage: AssetImage("img/background.jpg"),
+                              backgroundImage: AssetImage(list[i]['img']),
                             ),
                             SizedBox(
                               width: 10,
@@ -317,10 +339,10 @@ class _ContentPageState extends State<ContentPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Status",
+                                  list[i]['status'],
                                   style: TextStyle(
-                                    color: Color(0xFFfdebb2),
-                                    fontSize: 12,
+                                    color: Colors.orange,
+                                    fontSize: 18,
                                     decoration: TextDecoration.none,
                                   ),
                                 ),
@@ -330,7 +352,7 @@ class _ContentPageState extends State<ContentPage> {
                                 SizedBox(
                                   width: 170,
                                   child: Text(
-                                    "Text",
+                                    list[i]['text'],
                                     style: TextStyle(
                                         color: Color(0xFF3b3f42),
                                         fontSize: 18,
@@ -344,7 +366,7 @@ class _ContentPageState extends State<ContentPage> {
                                 width: 70,
                                 height: 70,
                                 child: Text(
-                                  "Time",
+                                  list[i]['time'],
                                   style: TextStyle(
                                     fontSize: 10,
                                     decoration: TextDecoration.none,
