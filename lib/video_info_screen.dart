@@ -132,6 +132,53 @@ class _VideoInfoScreenState extends State<VideoInfoScreen> {
                 ],
               ),
             ),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(
+                  left: 20,
+                  top: 20,
+                  right: 20,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(50.0),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "Circuit 1: Legs Toning",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.loop_outlined,
+                          color: Colors.blue.withOpacity(0.8),
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          "3 sets",
+                          style: TextStyle(
+                            color: Colors.grey.withOpacity(0.8),
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
