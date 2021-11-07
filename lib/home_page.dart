@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:video_player_app/colors.dart';
+import 'package:video_player_app/video_info_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -96,10 +98,15 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     width: 5,
                   ),
-                  Icon(
-                    Icons.arrow_forward,
-                    size: 20,
-                    color: AppColor.homePageIcons,
+                  IconButton(
+                    onPressed: () {
+                      Get.to(() => VideoInfoScreen());
+                    },
+                    icon: Icon(
+                      Icons.arrow_forward,
+                      size: 20,
+                      color: AppColor.homePageIcons,
+                    ),
                   ),
                 ],
               ),

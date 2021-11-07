@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:video_player_app/colors.dart';
 
 class VideoInfoScreen extends StatefulWidget {
@@ -38,9 +39,14 @@ class _VideoInfoScreenState extends State<VideoInfoScreen> {
                 children: [
                   Row(
                     children: [
-                      Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
+                      IconButton(
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Get.back();
+                        },
                       ),
                       Spacer(),
                       Icon(
