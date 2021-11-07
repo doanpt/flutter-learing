@@ -201,7 +201,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           constraints: constraints,
                         ),
                       ),
-                    )
+                    ),
+                    TempButtonWidget(
+                      isActive: _homeController.isCoolSelected,
+                      svgSrc: "assets/icons/coolShape.svg",
+                      title: "Cool",
+                      press: _homeController.updateCoolSelectedTab,
+                    ),
                   ],
                 );
               },
@@ -214,6 +220,50 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           _homeController,
           _batteryAnimationController,
           _tempAnimationController,
+        ],
+      ),
+    );
+  }
+}
+
+class TempButtonWidget extends StatelessWidget {
+  const TempButtonWidget(
+      {Key? key,
+      required this.svgSrc,
+      required this.title,
+      this.isActive = true,
+      required this.press})
+      : super(key: key);
+  final String svgSrc;
+  final String title;
+  final bool isActive;
+  final VoidCallback press;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: press,
+      child: Column(
+        children: [
+          Container(
+            width: isActive ? 80 : 50,
+            height: isActive ? 80 : 50,
+            child: SvgPicture.asset(
+              svgSrc,
+              color: isActive ? primaryColor : Colors.white38,
+            ),
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          Text(
+            title.toUpperCase(),
+            style: TextStyle(
+              fontSize: 16,
+              color: isActive ? primaryColor : Colors.white38,
+              fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
         ],
       ),
     );
