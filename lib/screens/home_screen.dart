@@ -225,9 +225,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     Positioned(
                       right: -180 * (1 - _animationCoolGrow.value),
                       width: 200,
-                      child: Image.asset(_homeController.isCoolSelected
-                          ? "assets/images/Cool_glow_2.png"
-                          : "assets/images/Hot_glow_4.png"),
+                      child: AnimatedSwitcher(
+                        duration: defaultDuration,
+                        child: _homeController.isCoolSelected
+                            ? Image.asset("assets/images/Cool_glow_2.png")
+                            : Image.asset("assets/images/Hot_glow_4.png"),
+                      ),
                     ),
                   ],
                 );
