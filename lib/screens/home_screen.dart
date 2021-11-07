@@ -3,7 +3,7 @@ import 'package:car_control/utils/const.dart';
 import 'package:car_control/widgets/battery_status.dart';
 import 'package:car_control/widgets/car_bottom_navigation.dart';
 import 'package:car_control/widgets/door_lock.dart';
-import 'package:car_control/widgets/temperature_button.dart';
+import 'package:car_control/widgets/temperature_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -203,26 +203,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                       ),
                     ),
-                    Row(
-                      children: [
-                        TempButtonWidget(
-                          colorActive: primaryColor,
-                          isActive: _homeController.isCoolSelected,
-                          svgSrc: "assets/icons/coolShape.svg",
-                          title: "Cool",
-                          press: _homeController.updateCoolSelectedTab,
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        TempButtonWidget(
-                          colorActive: redColor,
-                          isActive: !_homeController.isCoolSelected,
-                          svgSrc: "assets/icons/heatShape.svg",
-                          title: "Heat",
-                          press: _homeController.updateCoolSelectedTab,
-                        ),
-                      ],
+                    TemperatureDetail(
+                      tempController: _homeController,
                     ),
                   ],
                 );
