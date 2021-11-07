@@ -245,23 +245,34 @@ class TempButtonWidget extends StatelessWidget {
       onTap: press,
       child: Column(
         children: [
-          Container(
-            width: isActive ? 80 : 50,
-            height: isActive ? 80 : 50,
-            child: SvgPicture.asset(
-              svgSrc,
-              color: isActive ? primaryColor : Colors.white38,
+          AnimatedContainer(
+            duration: Duration(
+              milliseconds: 200,
+            ),
+            curve: Curves.easeInOutBack,
+            child: Container(
+              width: isActive ? 80 : 50,
+              height: isActive ? 80 : 50,
+              child: SvgPicture.asset(
+                svgSrc,
+                color: isActive ? primaryColor : Colors.white38,
+              ),
             ),
           ),
           const SizedBox(
             height: 4,
           ),
-          Text(
-            title.toUpperCase(),
+          AnimatedDefaultTextStyle(
+            duration: Duration(
+              microseconds: 200,
+            ),
             style: TextStyle(
               fontSize: 16,
               color: isActive ? primaryColor : Colors.white38,
               fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+            ),
+            child: Text(
+              title.toUpperCase(),
             ),
           ),
         ],
