@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late Animation<double> _animationBattery;
   late Animation<double> _animationBatteryStatus;
   late Animation<double> _animationCarShift;
+  late Animation<double> _animationTempDetail;
 
   late AnimationController _tempAnimationController;
 
@@ -34,6 +35,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       parent: _tempAnimationController,
       //at first time we will wait, so that battery stats animation can complete
       curve: Interval(0.2, 0.4),
+    );
+
+    _animationTempDetail = CurvedAnimation(
+      parent: _tempAnimationController,
+      //at first time we will wait, so that battery stats animation can complete
+      curve: Interval(0.45, 0.65),
     );
   }
 
@@ -94,7 +101,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           body: SafeArea(
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                print(_animationBattery.value);
                 return Stack(
                   alignment: Alignment.center,
                   children: [
@@ -203,8 +209,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                       ),
                     ),
-                    TemperatureDetail(
-                      tempController: _homeController,
+                    Opacity(
+                      opacity: _animationTempDetail.value,
+                      child: TemperatureDetail(
+                        tempController: _homeController,
+                      ),
                     ),
                   ],
                 );
