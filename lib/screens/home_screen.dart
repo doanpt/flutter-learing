@@ -13,12 +13,28 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final HomeController _homeController = HomeController();
   late AnimationController _batteryAnimationController;
   late Animation<double> _animationBattery;
   late Animation<double> _animationBatteryStatus;
+  late Animation<double> _animationCarShift;
+
+  late AnimationController _tempAnimationController;
+
+  void setupTempAnimationController() {
+    _tempAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 1500,
+      ),
+    );
+    _animationCarShift = CurvedAnimation(
+      parent: _tempAnimationController,
+      //at first time we will wait, so that battery stats animation can complete
+      curve: Interval(0.2, 0.4),
+    );
+  }
 
   void setupBatteryAnimation() {
     _batteryAnimationController = AnimationController(
@@ -42,12 +58,14 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     setupBatteryAnimation();
+    setupTempAnimationController();
     super.initState();
   }
 
   @override
   void dispose() {
     _batteryAnimationController.dispose();
+    _tempAnimationController.dispose();
     super.dispose();
   }
 
@@ -63,6 +81,11 @@ class _HomeScreenState extends State<HomeScreen>
               } else if (_homeController.selectedBottomTab == 1 && index != 1) {
                 _batteryAnimationController.reverse(from: 0.7);
               }
+              if (index == 2) {
+                _tempAnimationController.forward();
+              } else if (_homeController.selectedBottomTab == 2 && index != 2) {
+                _tempAnimationController.reverse(from: 0.4);
+              }
               _homeController.onBottomNavItemChange(index);
             },
             selectedTab: _homeController.selectedBottomTab,
@@ -74,12 +97,21 @@ class _HomeScreenState extends State<HomeScreen>
                 return Stack(
                   alignment: Alignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: constraints.maxHeight * 0.1),
-                      child: SvgPicture.asset(
-                        'assets/icons/Car.svg',
-                        width: double.infinity,
+                    SizedBox(
+                      width: constraints.maxWidth,
+                      height: constraints.maxHeight,
+                    ),
+                    Positioned(
+                      left: constraints.maxWidth / 2 * _animationCarShift.value,
+                      width: constraints.maxWidth,
+                      height: constraints.maxHeight,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: constraints.maxHeight * 0.1),
+                        child: SvgPicture.asset(
+                          'assets/icons/Car.svg',
+                          width: double.infinity,
+                        ),
                       ),
                     ),
                     AnimatedPositioned(
@@ -181,6 +213,7 @@ class _HomeScreenState extends State<HomeScreen>
         [
           _homeController,
           _batteryAnimationController,
+          _tempAnimationController,
         ],
       ),
     );
