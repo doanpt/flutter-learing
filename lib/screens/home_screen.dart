@@ -203,11 +203,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                       ),
                     ),
-                    TempButtonWidget(
-                      isActive: _homeController.isCoolSelected,
-                      svgSrc: "assets/icons/coolShape.svg",
-                      title: "Cool",
-                      press: _homeController.updateCoolSelectedTab,
+                    Row(
+                      children: [
+                        TempButtonWidget(
+                          colorActive: primaryColor,
+                          isActive: _homeController.isCoolSelected,
+                          svgSrc: "assets/icons/coolShape.svg",
+                          title: "Cool",
+                          press: _homeController.updateCoolSelectedTab,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        TempButtonWidget(
+                          colorActive: redColor,
+                          isActive: !_homeController.isCoolSelected,
+                          svgSrc: "assets/icons/heatShape.svg",
+                          title: "Heat",
+                          press: _homeController.updateCoolSelectedTab,
+                        ),
+                      ],
                     ),
                   ],
                 );
