@@ -4,6 +4,7 @@ import 'package:car_control/widgets/battery_status.dart';
 import 'package:car_control/widgets/car_bottom_navigation.dart';
 import 'package:car_control/widgets/door_lock.dart';
 import 'package:car_control/widgets/temperature_detail.dart';
+import 'package:car_control/widgets/tires.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -232,6 +233,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             : Image.asset("assets/images/Hot_glow_4.png"),
                       ),
                     ),
+                    //tires
+                    ...getTires(constraints),
                   ],
                 );
               },
@@ -248,4 +251,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
     );
   }
+
+
 }
