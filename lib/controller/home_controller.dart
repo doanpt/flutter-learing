@@ -11,6 +11,7 @@ class HomeController extends ChangeNotifier {
   bool isCoolSelected = true;
 
   bool isShowTires = false;
+  bool isShowTiresStatus = false;
 
   void onBottomNavItemChange(int index) {
     selectedBottomTab = index;
@@ -54,6 +55,21 @@ class HomeController extends ChangeNotifier {
       });
     } else {
       isShowTires = false;
+      notifyListeners();
+    }
+  }
+
+  void typeStatusController(int index) {
+    if (selectedBottomTab != 3 && index == 3) {
+      Future.delayed(
+          Duration(
+            milliseconds: 400,
+          ), () {
+        isShowTiresStatus = true;
+        notifyListeners();
+      });
+    } else {
+      isShowTiresStatus = false;
       notifyListeners();
     }
   }

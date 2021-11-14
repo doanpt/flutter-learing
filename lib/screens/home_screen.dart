@@ -105,6 +105,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 _tempAnimationController.reverse(from: 0.4);
               }
               _homeController.showTires(index);
+              _homeController.typeStatusController(index);
               _homeController.onBottomNavItemChange(index);
             },
             selectedTab: _homeController.selectedBottomTab,
@@ -238,21 +239,22 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                     //tires
                     if (_homeController.isShowTires) ...getTires(constraints),
-                    GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: defaultPadding,
-                        crossAxisSpacing: defaultPadding,
-                        childAspectRatio:
-                            constraints.maxWidth / constraints.maxHeight,
+                    if (_homeController.isShowTiresStatus)
+                      GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: defaultPadding,
+                          crossAxisSpacing: defaultPadding,
+                          childAspectRatio:
+                              constraints.maxWidth / constraints.maxHeight,
+                        ),
+                        itemBuilder: (ctx, index) => TirePsiCard(
+                          isBottomTwoTire: index > 1,
+                          tyrePsi: demoPsiList[index],
+                        ),
+                        itemCount: 4,
                       ),
-                      itemBuilder: (ctx, index) => TirePsiCard(
-                        isBottomTwoTire: index > 1,
-                        tyrePsi: demoPsiList[index],
-                      ),
-                      itemCount: 4,
-                    ),
                   ],
                 );
               },
