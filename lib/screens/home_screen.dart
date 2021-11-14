@@ -1,9 +1,11 @@
 import 'package:car_control/controller/home_controller.dart';
+import 'package:car_control/models/tyre_psi.dart';
 import 'package:car_control/utils/const.dart';
 import 'package:car_control/widgets/battery_status.dart';
 import 'package:car_control/widgets/car_bottom_navigation.dart';
 import 'package:car_control/widgets/door_lock.dart';
 import 'package:car_control/widgets/temperature_detail.dart';
+import 'package:car_control/widgets/tire_psi_card.dart';
 import 'package:car_control/widgets/tires.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -236,6 +238,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                     //tires
                     if (_homeController.isShowTires) ...getTires(constraints),
+                    GridView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: defaultPadding,
+                        crossAxisSpacing: defaultPadding,
+                        childAspectRatio:
+                            constraints.maxWidth / constraints.maxHeight,
+                      ),
+                      itemBuilder: (ctx, index) => TirePsiCard(
+                        isBottomTwoTire: index > 1,
+                        tyrePsi: demoPsiList[index],
+                      ),
+                      itemCount: 4,
+                    ),
                   ],
                 );
               },
