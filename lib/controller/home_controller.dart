@@ -61,16 +61,16 @@ class HomeController extends ChangeNotifier {
 
   void typeStatusController(int index) {
     if (selectedBottomTab != 3 && index == 3) {
+      isShowTiresStatus = true;
+      notifyListeners();
+    } else {
       Future.delayed(
           Duration(
-            milliseconds: 400,
+            milliseconds: 500,
           ), () {
-        isShowTiresStatus = true;
+        isShowTiresStatus = false;
         notifyListeners();
       });
-    } else {
-      isShowTiresStatus = false;
-      notifyListeners();
     }
   }
 }

@@ -25,8 +25,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late Animation<double> _animationCarShift;
   late Animation<double> _animationTempDetail;
   late Animation<double> _animationCoolGrow;
+  late Animation<double> _animationTire1Psi;
+  late Animation<double> _animationTire2Psi;
+  late Animation<double> _animationTire3Psi;
+  late Animation<double> _animationTire4Psi;
+
+  late List<Animation<double>> tiresAnimation;
 
   late AnimationController _tempAnimationController;
+
+  late AnimationController _tiresAnimationController;
 
   void setupTempAnimationController() {
     _tempAnimationController = AnimationController(
@@ -73,10 +81,43 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
+  void setupTiresAnimationController() {
+    _tiresAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1000),
+    );
+
+    //We want to delay 400 milliseconds because with this time the car can animate from right size
+    //1200*0.34=408
+    _animationTire1Psi = CurvedAnimation(
+      parent: _tiresAnimationController,
+      curve: Interval(0.34, 0.5),
+    );
+    _animationTire2Psi = CurvedAnimation(
+      parent: _tiresAnimationController,
+      curve: Interval(0.6, 0.66),
+    );
+    _animationTire3Psi = CurvedAnimation(
+      parent: _tiresAnimationController,
+      curve: Interval(0.66, 0.82),
+    );
+    _animationTire4Psi = CurvedAnimation(
+      parent: _tiresAnimationController,
+      curve: Interval(0.82, 1),
+    );
+  }
+
   @override
   void initState() {
     setupBatteryAnimation();
     setupTempAnimationController();
+    setupTiresAnimationController();
+    tiresAnimation = [
+      _animationTire1Psi,
+      _animationTire2Psi,
+      _animationTire3Psi,
+      _animationTire4Psi
+    ];
     super.initState();
   }
 
@@ -103,6 +144,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 _tempAnimationController.forward();
               } else if (_homeController.selectedBottomTab == 2 && index != 2) {
                 _tempAnimationController.reverse(from: 0.4);
+              }
+              if (index == 3) {
+                _tiresAnimationController.forward();
+              } else if (_homeController.selectedBottomTab == 3 && index != 3) {
+                _tiresAnimationController.reverse();
               }
               _homeController.showTires(index);
               _homeController.typeStatusController(index);
@@ -249,9 +295,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           childAspectRatio:
                               constraints.maxWidth / constraints.maxHeight,
                         ),
-                        itemBuilder: (ctx, index) => TirePsiCard(
-                          isBottomTwoTire: index > 1,
-                          tyrePsi: demoPsiList[index],
+                        itemBuilder: (ctx, index) => ScaleTransition(
+                          scale: tiresAnimation[index],
+                          child: TirePsiCard(
+                            isBottomTwoTire: index > 1,
+                            tyrePsi: demoPsiList[index],
+                          ),
                         ),
                         itemCount: 4,
                       ),
@@ -267,6 +316,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           _homeController,
           _batteryAnimationController,
           _tempAnimationController,
+          _tiresAnimationController,
         ],
       ),
     );
