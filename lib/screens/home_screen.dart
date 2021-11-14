@@ -102,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               } else if (_homeController.selectedBottomTab == 2 && index != 2) {
                 _tempAnimationController.reverse(from: 0.4);
               }
+              _homeController.showTires(index);
               _homeController.onBottomNavItemChange(index);
             },
             selectedTab: _homeController.selectedBottomTab,
@@ -234,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                     //tires
-                    ...getTires(constraints),
+                    if (_homeController.isShowTires) ...getTires(constraints),
                   ],
                 );
               },
@@ -251,6 +252,4 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
     );
   }
-
-
 }

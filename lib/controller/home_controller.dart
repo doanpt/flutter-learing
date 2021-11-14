@@ -10,6 +10,8 @@ class HomeController extends ChangeNotifier {
   bool isTrunkLock = true;
   bool isCoolSelected = true;
 
+  bool isShowTires = false;
+
   void onBottomNavItemChange(int index) {
     selectedBottomTab = index;
     print("index $index");
@@ -39,5 +41,20 @@ class HomeController extends ChangeNotifier {
   void updateCoolSelectedTab() {
     isCoolSelected = !isCoolSelected;
     notifyListeners();
+  }
+
+  void showTires(int index) {
+    if (selectedBottomTab != 3 && index == 3) {
+      Future.delayed(
+          Duration(
+            milliseconds: 400,
+          ), () {
+        isShowTires = true;
+        notifyListeners();
+      });
+    } else {
+      isShowTires = false;
+      notifyListeners();
+    }
   }
 }
